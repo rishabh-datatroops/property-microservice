@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-property
+    environment:
+      POSTGRES_DB: propertydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+    - "5432:5432"
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
+    networks:
+    - property-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper-property
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+    - "2181:2181"
+    networks:
+    - property-network
+
+  kafka:
+    image: confluentinc/cp-kafka:6.0.1
+    container_name: kafka-property
+    depends_on:
+    - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    ports:
+    - "9092:9092"
+    networks:
+    - property-network
+
+  listing-service:
+    build: ./listing-service
+    container_name: listing-service
+    environment:
+    - POSTGRES_HOST=postgres
+    - POSTGRES_PORT=5432
+    - POSTGRES_DB=propertydb
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    ports:
+    - "9001:9001"
+    depends_on:
+    - postgres
+    - kafka
+    networks:
+    - property-network
+
+  notification-service:
+    build: ./notification-service
+    container_name: notification-service
+    environment:
+    - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+    ports:
+    - "9002:9002"
+    depends_on:
+    - kafka
+    networks:
+    - property-network
+
+  graphql-service:
+    build: ./graphql-service
+    container_name: graphql-service
+    environment:
+    - LISTING_SERVICE_URL=http://listing-service:9001
+    - NOTIFICATION_SERVICE_URL=http://notification-service:9002
+    ports:
+    - "9000:9000"
+    depends_on:
+    - listing-service
+    - notification-service
+    networks:
+    - property-network
+
+networks:
+  property-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

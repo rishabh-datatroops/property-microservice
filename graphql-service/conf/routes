@@ -1,0 +1,19 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# GraphQL endpoint
+POST    /api/graphql       controllers.GraphQLController.graphql()
+
+
+# Health check endpoint
+GET     /health            controllers.GraphQLController.health()
+
+# Subscription test endpoints
+POST    /api/test/property-creation    controllers.SubscriptionTestController.testPropertyCreation()
+POST    /api/test/property-update      controllers.SubscriptionTestController.testPropertyUpdate()
+GET     /api/test/subscription-health  controllers.SubscriptionTestController.subscriptionHealth()
+
+# Static assets
+GET     /assets/*file      controllers.Assets.versioned(path="/public", file: Asset)
