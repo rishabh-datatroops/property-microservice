@@ -1,16 +1,15 @@
 package graphql.datafetchers
 
-import akka.actor.typed.{ActorRef, ActorSystem, Behavior}
-import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
+import akka.actor.typed.ActorSystem
+import akka.actor.typed.scaladsl.Behaviors
 import graphql.schema.DataFetcher
 import messages.property.Property
 import org.reactivestreams.{Publisher, Subscriber, Subscription}
 
+import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success}
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.{ConcurrentLinkedQueue, CompletableFuture}
 
 @Singleton
 class PropertySubscriptionDataFetcher @Inject()(

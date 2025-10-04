@@ -1,24 +1,22 @@
 package api.property
 
-import messages.property._
-import scala.concurrent.duration.FiniteDuration
+import messages.property.{Property, PropertyId, PropertyList, CreateProperty, UpdateProperty}
 import scala.concurrent.Future
-import constants.Defaults
-
-trait ListPropertiesRequest {
-  def apply()(
-    implicit timeout: FiniteDuration = Defaults.timeout
-  ): Future[PropertyList]
-}
 
 trait GetPropertyRequest {
-  def apply(propertyId: String)(
-    implicit timeout: FiniteDuration = Defaults.timeout
-  ): Future[Property]
+  def getAllProperties(): Future[PropertyList]
+  def getPropertyById(id: String): Future[Option[Property]]
 }
 
 trait CreatePropertyRequest {
-  def apply(createProperty: CreateProperty)(
-    implicit timeout: FiniteDuration = Defaults.timeout
-  ): Future[PropertyCreated]
+  def createProperty(property: CreateProperty): Future[Property]
+}
+
+trait UpdatePropertyRequest {
+  def updateProperty(id: String, updates: UpdateProperty): Future[Option[Property]]
+  def updatePropertyPrice(id: String, price: Double): Future[Option[Property]]
+}
+
+trait DeletePropertyRequest {
+  def deleteProperty(id: String): Future[Boolean]
 }

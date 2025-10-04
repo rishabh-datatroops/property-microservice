@@ -1,9 +1,10 @@
 package graphql.datafetchers
 
+import api.property.{CreatePropertyRequest, UpdatePropertyRequest, DeletePropertyRequest}
 import javax.inject._
 import graphql.schema.DataFetcher
-import messages.property.Property
-import services.ListingServiceClient
+import messages.property.{Property, CreateProperty, UpdateProperty}
+import services.PropertyUpdateService
 import java.util.UUID
 import java.time.Instant
 import scala.concurrent.{ExecutionContext, Future}
@@ -11,12 +12,14 @@ import scala.jdk.FutureConverters._
 
 @Singleton
 class PropertyMutationDataFetcher @Inject()(
-  listingService: ListingServiceClient,
-  propertyUpdateService: services.PropertyUpdateService
+  private val createPropertyRequest: CreatePropertyRequest,
+  private val updatePropertyRequest: UpdatePropertyRequest,
+  private val deletePropertyRequest: DeletePropertyRequest,
+  private val propertyUpdateService: PropertyUpdateService
 )(implicit ec: ExecutionContext) {
 
-  /** Helper to build a Property object */
-  private def buildProperty(
+  /** Helper to build a CreateProperty object */
+  private def buildCreateProperty(
     title: String,
     price: Double,
     location: String,
@@ -24,17 +27,14 @@ class PropertyMutationDataFetcher @Inject()(
     description: String,
     area: Double,
     brokerId: UUID
-  ): Property = Property(
-    id = UUID.randomUUID(),
+  ): CreateProperty = CreateProperty(
     brokerId = brokerId,
     title = title,
     description = description,
     propertyType = propertyType,
     price = price,
     location = location,
-    area = area,
-    createdAt = Instant.now(),
-    updatedAt = Instant.now()
+    area = area
   )
 
   /** Single createProperty data fetcher */
@@ -49,10 +49,10 @@ class PropertyMutationDataFetcher @Inject()(
     val area = Option(input.get("area")).map(_.toString.toDouble).getOrElse(1000.0)
     val brokerId = Option(input.get("brokerId")).map(b => UUID.fromString(b.toString)).getOrElse(UUID.randomUUID())
 
-    val property = buildProperty(title, price, location, propertyType, description, area, brokerId)
+    val createPropertyData = buildCreateProperty(title, price, location, propertyType, description, area, brokerId)
 
     // Create the property and broadcast to subscribers
-    val result = listingService.createProperty(property).flatMap { createdProperty =>
+    val result = createPropertyRequest.createProperty(createPropertyData).flatMap { createdProperty =>
       // Broadcast the new property to GraphQL subscribers
       propertyUpdateService.onPropertyCreated(createdProperty).map(_ => createdProperty)
     }
@@ -65,15 +65,16 @@ class PropertyMutationDataFetcher @Inject()(
     val input = env.getArgument[java.util.Map[String, Any]]("input")
     val id = input.get("id").toString
 
-    val updates = scala.collection.mutable.Map[String, Any]()
-    Option(input.get("title")).foreach(v => updates.put("title", v.toString))
-    Option(input.get("description")).foreach(v => updates.put("description", v.toString))
-    Option(input.get("propertyType")).foreach(v => updates.put("propertyType", v.toString))
-    Option(input.get("price")).foreach(v => updates.put("price", v.toString.toDouble))
-    Option(input.get("location")).foreach(v => updates.put("location", v.toString))
-    Option(input.get("area")).foreach(v => updates.put("area", v.toString.toDouble))
+    val updates = UpdateProperty(
+      title = Option(input.get("title")).map(_.toString),
+      description = Option(input.get("description")).map(_.toString),
+      propertyType = Option(input.get("propertyType")).map(_.toString),
+      price = Option(input.get("price")).map(_.toString.toDouble),
+      location = Option(input.get("location")).map(_.toString),
+      area = Option(input.get("area")).map(_.toString.toDouble)
+    )
 
-    val result = listingService.updateProperty(id, updates.toMap).flatMap {
+    val result = updatePropertyRequest.updateProperty(id, updates).flatMap {
       case Some(updatedProperty) => 
         // Broadcast the property update to GraphQL subscribers
         propertyUpdateService.onPropertyUpdated(updatedProperty).map(_ => updatedProperty)
@@ -89,7 +90,7 @@ class PropertyMutationDataFetcher @Inject()(
     val id = env.getArgument[String]("id")
     val price = env.getArgument[Double]("price")
 
-    val result = listingService.updatePropertyPrice(id, price).flatMap {
+    val result = updatePropertyRequest.updatePropertyPrice(id, price).flatMap {
       case Some(updatedProperty) => 
         // Broadcast the property update to GraphQL subscribers
         propertyUpdateService.onPropertyUpdated(updatedProperty).map(_ => updatedProperty)
@@ -104,7 +105,7 @@ class PropertyMutationDataFetcher @Inject()(
   val deleteProperty: DataFetcher[java.util.concurrent.CompletableFuture[Boolean]] = env => {
     val id = env.getArgument[String]("id")
 
-    val result = listingService.deleteProperty(id).flatMap { success =>
+    val result = deletePropertyRequest.deleteProperty(id).flatMap { success =>
       if (success) {
         // Notify about property deletion
         propertyUpdateService.onPropertyDeleted(id).map(_ => success)
