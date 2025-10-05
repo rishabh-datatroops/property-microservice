@@ -19,11 +19,11 @@ case class PropertyCreatedEvent(
   propertyId: UUID,
   brokerId: UUID,
   title: String,
-  description: String,
+  description: Option[String],
   propertyType: String,
   price: Double,
   location: String,
-  area: Double,
+  area: Option[Double],
   timestamp: Instant = Instant.now()
 ) extends PropertyEvent {
   val eventType = "PropertyCreated"
@@ -33,11 +33,11 @@ case class PropertyUpdatedEvent(
   propertyId: UUID,
   brokerId: UUID,
   title: String,
-  description: String,
+  description: Option[String],
   propertyType: String,
   price: Double,
   location: String,
-  area: Double,
+  area: Option[Double],
   timestamp: Instant = Instant.now()
 ) extends PropertyEvent {
   val eventType = "PropertyUpdated"

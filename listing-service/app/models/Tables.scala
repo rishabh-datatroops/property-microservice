@@ -12,13 +12,14 @@ class Properties(tag: Tag) extends Table[Property](tag, "properties") {
   def id = column[UUID]("id", O.PrimaryKey)
   def brokerId = column[UUID]("broker_id")
   def title = column[String]("title")
-  def description = column[String]("description")
+  def description = column[Option[String]]("description")   // optional
   def propertyType = column[String]("property_type")
   def price = column[Double]("price")
   def location = column[String]("location")
-  def area = column[Double]("area")
+  def area = column[Option[Double]]("area")                // optional
   def createdAt = column[Instant]("created_at")
   def updatedAt = column[Instant]("updated_at")
+  def deletedAt = column[Option[Instant]]("deleted_at")   // optional
 
-  def * = (id, brokerId, title, description, propertyType, price, location, area, createdAt, updatedAt) <> (Property.tupled, Property.unapply)
+  def * = (id, brokerId, title, description, propertyType, price, location, area, createdAt, updatedAt, deletedAt) <> (Property.tupled, Property.unapply)
 }

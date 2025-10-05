@@ -2607,3 +2607,423 @@ WARNING: Unmatched cancel notification for request id 2165
 2025.10.04 15:16:28 INFO  time: compiled root in 2.65s
 2025.10.04 15:16:28 INFO  compiling root (9 scala sources)
 2025.10.04 15:16:31 INFO  time: compiled root in 1.69s
+2025.10.04 15:43:29 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.04 15:43:29 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.04 15:43:29 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.04 15:43:30 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.04 15:43:30 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.04 15:43:31 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.04 15:43:33 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:28 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:28 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala
+2025.10.05 00:31:28 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:28 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:31 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:31 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:42 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:42 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:43 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:31:43 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:10 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala
+2025.10.05 00:32:10 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:10 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:10 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:10 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:17 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:30 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/build.sc. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/build.sc. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/build.sc
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/project/plugins.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/project/plugins.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/project/plugins.sbt
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/build.sbt
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:33 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:36 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala
+2025.10.05 00:32:36 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:36 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:36 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 00:32:36 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:36 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:46 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:51 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:51 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:51 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:52 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:52 INFO  Created report: Optional[file:///Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala]
+2025.10.05 00:32:52 INFO  empty definition using pc, found symbol in pc: services/PropertyStateService#getPropertyState(). (full report at: "/Users/rishabh/Property-microservice/.metals/.reports/metals-full/2025-10-05/r_empty-definition_00-32-52-944.md")
+2025.10.05 00:32:53 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:32:52 INFO  empty definition using pc, found symbol in pc: services/PropertyStateService#getPropertyState(). (full report at: "/Users/rishabh/Property-microservice/.metals/.reports/metals-full/2025-10-05/r_empty-definition_00-32-52-944.md")
+2025.10.05 00:35:25 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:39:02 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:39:03 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:39:03 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:39:58 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:39:59 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:39:59 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:41:39 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/kafka/KafkaConsumer.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:43:48 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:47:17 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/kafka/KafkaProducer.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:48:42 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/kafka/KafkaProducer.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:49:11 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/kafka/KafkaProducer.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:50:55 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/kafka/KafkaProducer.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:51:46 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/kafka/KafkaProducer.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:54:33 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:55:42 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:56:15 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 00:58:08 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:05:32 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:07:32 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/messages/property/PropertyEvents.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:47 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:47 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:47 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.05 01:08:47 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:52 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:52 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.05 01:08:53 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:53 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:08:53 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.05 01:08:54 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:04 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:29 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:29 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:29 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala
+2025.10.05 01:10:29 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala
+2025.10.05 01:10:29 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:32 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:32 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:32 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala
+2025.10.05 01:10:40 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:40 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala
+2025.10.05 01:10:40 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:40 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:10:40 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala
+2025.10.05 01:11:04 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala
+2025.10.05 01:11:04 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 01:11:18 INFO  compiling root (2 scala sources)
+2025.10.05 01:11:19 INFO  time: compiled root in 1.26s
+2025.10.05 01:11:19 INFO  compiling root (1 scala source)
+2025.10.05 01:11:21 INFO  time: compiled root in 1.3s
+2025.10.05 01:11:24 INFO  compiling root (1 scala source)
+2025.10.05 01:11:25 INFO  time: compiled root in 1.32s
+2025.10.05 01:11:25 INFO  compiling root (10 scala sources)
+2025.10.05 01:11:25 INFO  time: compiled root in 0.19s
+2025.10.05 01:12:08 INFO  compiling root (2 scala sources)
+2025.10.05 01:12:08 INFO  time: compiled root in 0.33s
+2025.10.05 01:12:11 INFO  compiling root (2 scala sources)
+2025.10.05 01:12:12 INFO  time: compiled root in 1.04s
+2025.10.05 01:12:12 INFO  compiling root (10 scala sources)
+2025.10.05 01:12:12 INFO  time: compiled root in 0.18s
+2025.10.05 01:12:16 INFO  compiling root (3 scala sources)
+2025.10.05 01:12:18 INFO  time: compiled root in 2.25s
+2025.10.05 01:12:18 INFO  compiling root (10 scala sources)
+2025.10.05 01:12:19 INFO  time: compiled root in 1.37s
+2025.10.05 01:13:18 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/models/Property.scala
+2025.10.05 01:13:18 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.05 01:13:18 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/messages/property/PropertyEvents.scala
+2025.10.05 05:43:58 INFO  compiling root (2 scala sources)
+2025.10.05 05:44:01 INFO  time: compiled root in 2.34s
+2025.10.05 05:44:25 INFO  compiling root (3 scala sources)
+2025.10.05 05:44:25 INFO  time: compiled root in 0.57s
+2025.10.05 05:44:29 INFO  compiling root (3 scala sources)
+2025.10.05 05:44:29 INFO  time: compiled root in 0.38s
+2025.10.05 05:46:13 INFO  compiling root (3 scala sources)
+2025.10.05 05:46:13 INFO  time: compiled root in 0.42s
+2025.10.05 05:46:20 INFO  compiling root (3 scala sources)
+2025.10.05 05:46:21 INFO  time: compiled root in 1.42s
+Oct 05, 2025 5:51:05 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2712
+2025.10.05 05:52:24 INFO  compiling root (5 scala sources)
+2025.10.05 05:52:26 INFO  time: compiled root in 2.38s
+2025.10.05 05:52:26 INFO  compiling root (4 scala sources)
+2025.10.05 05:52:26 INFO  time: compiled root in 0.42s
+2025.10.05 05:52:28 INFO  compiling root (1 scala source)
+2025.10.05 05:52:28 INFO  time: compiled root in 0.7s
+2025.10.05 05:52:28 INFO  compiling root (1 scala source)
+2025.10.05 05:52:28 INFO  time: compiled root in 0.12s
+2025.10.05 05:52:31 INFO  compiling root (1 scala source)
+2025.10.05 05:52:31 INFO  time: compiled root in 0.72s
+2025.10.05 05:52:37 INFO  compiling root (1 scala source)
+2025.10.05 05:52:40 INFO  time: compiled root in 2.38s
+2025.10.05 05:52:40 INFO  compiling root (1 scala source)
+2025.10.05 05:52:40 INFO  time: compiled root in 0.3s
+2025.10.05 05:56:21 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 06:04:55 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/PropertyStateService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 06:04:55 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/models/NotifyNewProperty.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 06:04:55 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 06:12:11 INFO  compiling root (3 scala sources)
+2025.10.05 06:12:14 INFO  time: compiled root in 2.19s
+2025.10.05 06:12:14 INFO  compiling root (2 scala sources)
+2025.10.05 06:12:14 INFO  time: compiled root in 0.13s
+2025.10.05 06:12:14 INFO  compiling root (1 scala source)
+2025.10.05 06:12:14 INFO  time: compiled root in 0.33s
+2025.10.05 06:12:17 INFO  compiling root (1 scala source)
+2025.10.05 06:12:17 INFO  time: compiled root in 0.6s
+2025.10.05 06:12:20 INFO  compiling root (1 scala source)
+2025.10.05 06:12:21 INFO  time: compiled root in 1.17s
+2025.10.05 06:12:36 INFO  compiling root (1 scala source)
+2025.10.05 06:12:37 INFO  time: compiled root in 1.18s
+2025.10.05 06:12:42 INFO  compiling root (1 scala source)
+2025.10.05 06:12:44 INFO  time: compiled root in 1.87s
+2025.10.05 06:12:45 INFO  compiling root (1 scala source)
+2025.10.05 06:12:46 INFO  time: compiled root in 1.23s
+2025.10.05 06:12:50 INFO  compiling root (1 scala source)
+2025.10.05 06:12:51 INFO  time: compiled root in 1.01s
+2025.10.05 06:12:54 INFO  compiling root (1 scala source)
+2025.10.05 06:12:57 INFO  time: compiled root in 2.34s
+2025.10.05 06:12:58 INFO  compiling root (1 scala source)
+2025.10.05 06:13:00 INFO  time: compiled root in 1.62s
+2025.10.05 06:13:01 INFO  compiling root (1 scala source)
+2025.10.05 06:13:02 INFO  time: compiled root in 1.06s
+2025.10.05 06:13:04 INFO  compiling root (1 scala source)
+2025.10.05 06:13:04 INFO  time: compiled root in 0.98s
+2025.10.05 06:13:07 INFO  compiling root (1 scala source)
+2025.10.05 06:13:09 INFO  time: compiled root in 1.3s
+2025.10.05 06:13:11 INFO  compiling root (1 scala source)
+2025.10.05 06:13:14 INFO  time: compiled root in 2.66s
+2025.10.05 06:13:14 INFO  compiling root (1 scala source)
+2025.10.05 06:13:16 INFO  time: compiled root in 1.87s
+2025.10.05 06:25:38 INFO  compiling root (1 scala source)
+2025.10.05 06:25:38 INFO  time: compiled root in 0.34s
+2025.10.05 06:26:08 INFO  compiling root (1 scala source)
+2025.10.05 06:26:10 INFO  time: compiled root in 1.53s
+2025.10.05 06:29:02 INFO  compiling root (1 scala source)
+2025.10.05 06:29:04 INFO  time: compiled root in 2.02s
+2025.10.05 06:29:08 INFO  compiling root (1 scala source)
+2025.10.05 06:29:09 INFO  time: compiled root in 1.44s
+2025.10.05 06:31:02 INFO  compiling root (1 scala source)
+2025.10.05 06:31:03 INFO  time: compiled root in 1.2s
+2025.10.05 06:31:07 INFO  compiling root (1 scala source)
+2025.10.05 06:31:08 INFO  time: compiled root in 1.46s
+2025.10.05 06:35:05 INFO  compiling root (4 scala sources)
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: not found: value UserRole
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: not found: value User
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: reassignment to val
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: reassignment to val
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: not found: value name
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: not found: type User
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: not found: type User
+2025.10.05 06:35:05 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:05 INFO  BSP server: not found: type User
+2025.10.05 06:35:05 INFO  time: compiled root in 0.54s
+2025.10.05 06:35:05 INFO  compiling root (3 scala sources)
+2025.10.05 06:35:06 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthorizationService.scala
+2025.10.05 06:35:06 INFO  BSP server: not found: type User
+2025.10.05 06:35:06 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthorizationService.scala
+2025.10.05 06:35:06 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthenticationService.scala
+2025.10.05 06:35:06 INFO  time: compiled root in 1.06s
+2025.10.05 06:35:42 INFO  compiling root (2 scala sources)
+2025.10.05 06:35:42 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/app/services/AuthorizationService.scala
+2025.10.05 06:35:42 INFO  time: compiled root in 0.49s
+2025.10.05 06:36:04 INFO  compiling root (2 scala sources)
+2025.10.05 06:36:05 INFO  time: compiled root in 1.58s
+2025.10.05 06:38:09 INFO  compiling root (1 scala source)
+2025.10.05 06:38:10 INFO  time: compiled root in 1.03s
+2025.10.05 08:41:47 INFO  compiling root (1 scala source)
+2025.10.05 08:41:49 INFO  time: compiled root in 1.57s
+2025.10.05 08:41:50 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:41:50 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:41:50 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 08:41:53 INFO  compiling root (1 scala source)
+2025.10.05 08:41:53 INFO  time: compiled root in 0.36s
+2025.10.05 08:42:08 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:42:08 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:42:08 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 08:42:15 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:42:15 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:42:15 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 08:42:20 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 08:42:20 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:42:25 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:42:25 INFO  compiling root (2 scala sources)
+2025.10.05 08:42:25 INFO  time: compiled root in 0.32s
+2025.10.05 08:42:25 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:48:31 WARN  Invalid text document uri received from build server: file:///Users/rishabh/Property-microservice/graphql-service/target/scala-2.13/routes/main/router/Routes.scala
+2025.10.05 08:48:31 INFO  time: compiled root in 25ms
+2025.10.05 08:49:04 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:49:04 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:49:04 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 08:49:19 INFO  compiling root (1 scala source)
+2025.10.05 08:49:19 INFO  time: compiled root in 0.94s
+2025.10.05 08:49:29 INFO  compiling root (1 scala source)
+2025.10.05 08:49:29 INFO  time: compiled root in 0.82s
+2025.10.05 08:49:36 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:49:36 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 08:49:36 INFO  compiling root (1 scala source)
+2025.10.05 08:49:37 INFO  time: compiled root in 1.5s
+2025.10.05 08:52:41 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 08:58:51 INFO  compiling root (6 scala sources and 1 java source)
+2025.10.05 08:58:55 WARN  Unexpected javac output: WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.sourcegraph.shaded.com.sourcegraph.semanticdb_javac.SemanticdbJavacOptions (file:/Users/rishabh/Library/Caches/bloop/semanticdb/com.sourcegraph.semanticdb-javac.0.11.0/semanticdb-javac-0.11.0.jar) to method com.sun.tools.javac.api.BasicJavacTask.getContext()
+WARNING: Please consider reporting this to the maintainers of com.sourcegraph.shaded.com.sourcegraph.semanticdb_javac.SemanticdbJavacOptions
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release.
+2025.10.05 08:58:55 INFO  time: compiled root in 3.85s
+2025.10.05 08:58:57 INFO  compiling root (1 scala source)
+2025.10.05 08:58:59 INFO  time: compiled root in 2.07s
+2025.10.05 08:59:01 INFO  compiling root (1 scala source)
+2025.10.05 08:59:02 INFO  time: compiled root in 1.07s
+2025.10.05 08:59:06 INFO  compiling root (1 scala source)
+2025.10.05 08:59:08 INFO  time: compiled root in 1.38s
+Oct 05, 2025 8:59:45 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleNotification
+WARNING: Notification threw an exception: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didSave",
+  "params": {
+    "textDocument": {
+      "uri": "file:///Users/rishabh/Property-microservice/graphql-service/app/graphql/datafetchers/PropertyDataFetcher.scala"
+    }
+  }
+}
+java.lang.IllegalStateException: An unexpected exception occurred while executing jsonrpc method public abstract java.util.concurrent.CompletableFuture scala.meta.metals.lsp.TextDocumentService.didSave(org.eclipse.lsp4j.DidSaveTextDocumentParams)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:73)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:160)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:231)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:198)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:185)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:97)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:114)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.nio.file.NoSuchFileException: /Users/rishabh/Property-microservice/graphql-service/app/graphql/datafetchers/PropertyDataFetcher.scala
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:218)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:380)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:432)
+	at java.base/java.nio.file.Files.readAllBytes(Files.java:3288)
+	at scala.meta.internal.io.PlatformFileIO$.slurp(PlatformFileIO.scala:42)
+	at scala.meta.internal.io.FileIO$.slurp(FileIO.scala:18)
+	at scala.meta.internal.metals.MetalsLspService.$anonfun$onChange$1(MetalsLspService.scala:909)
+	at scala.collection.immutable.List.map(List.scala:247)
+	at scala.collection.immutable.List.map(List.scala:79)
+	at scala.meta.internal.metals.MetalsLspService.onChange(MetalsLspService.scala:908)
+	at scala.meta.internal.metals.ProjectMetalsLspService.onChange(ProjectMetalsLspService.scala:310)
+	at scala.meta.internal.metals.MetalsLspService.didSave(MetalsLspService.scala:861)
+	at scala.meta.internal.metals.ProjectMetalsLspService.didSave(ProjectMetalsLspService.scala:299)
+	at scala.meta.internal.metals.WorkspaceLspService.didSave(WorkspaceLspService.scala:499)
+	at scala.meta.metals.lsp.DelegatingScalaService.didSave(DelegatingScalaService.scala:53)
+	at jdk.internal.reflect.GeneratedMethodAccessor5.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:65)
+	... 11 more
+
+2025.10.05 08:59:47 INFO  compiling root (1 scala source)
+2025.10.05 08:59:47 INFO  time: compiled root in 0.97s
+2025.10.05 09:13:48 INFO  compiling root (1 scala source)
+2025.10.05 09:13:49 INFO  time: compiled root in 1.17s
+2025.10.05 09:14:34 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 09:14:34 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:14:34 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:14:59 WARN  no build target for: /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala
+2025.10.05 09:14:59 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:15:45 INFO  compiling root (1 scala source)
+2025.10.05 09:15:47 INFO  time: compiled root in 1.9s
+2025.10.05 09:15:47 INFO  no build target found for /Users/rishabh/Property-microservice/notification-service/app/services/NotificationService.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:15:47 INFO  compiling root (1 scala source)
+2025.10.05 09:15:49 INFO  time: compiled root in 1.05s
+2025.10.05 09:15:51 INFO  compiling root (1 scala source)
+2025.10.05 09:15:51 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/SchemaBuilder.scala
+2025.10.05 09:15:52 INFO  time: compiled root in 1.32s
+2025.10.05 09:15:55 INFO  compiling root (1 scala source)
+2025.10.05 09:15:57 INFO  time: compiled root in 1.7s
+2025.10.05 09:15:59 INFO  compiling root (1 scala source)
+2025.10.05 09:16:00 INFO  time: compiled root in 1.17s
+2025.10.05 09:16:02 INFO  compiling root (1 scala source)
+2025.10.05 09:16:04 INFO  time: compiled root in 1.32s
+2025.10.05 09:16:07 INFO  compiling root (1 scala source)
+2025.10.05 09:16:09 INFO  time: compiled root in 1.65s
+2025.10.05 09:20:28 ERROR /Users/rishabh/Property-microservice/graphql-service/app/graphql/datafetchers/PropertyDataFetcher.scala
+java.nio.file.NoSuchFileException: /Users/rishabh/Property-microservice/graphql-service/app/graphql/datafetchers/PropertyDataFetcher.scala
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:218)
+	at java.nio.file.Files.newByteChannel(Files.java:380)
+	at java.nio.file.Files.newByteChannel(Files.java:432)
+	at java.nio.file.Files.readAllBytes(Files.java:3288)
+	at scala.meta.internal.io.PlatformFileIO$.slurp(PlatformFileIO.scala:42)
+	at scala.meta.internal.io.FileIO$.slurp(FileIO.scala:18)
+	at scala.meta.internal.mtags.ScalametaCommonEnrichments$XtensionAbsolutePath.toInput(ScalametaCommonEnrichments.scala:466)
+	at scala.meta.internal.metals.Indexer.indexSourceFile(Indexer.scala:481)
+	at scala.meta.internal.metals.Indexer.$anonfun$reindexWorkspaceSources$3(Indexer.scala:587)
+	at scala.meta.internal.metals.Indexer.$anonfun$reindexWorkspaceSources$3$adapted(Indexer.scala:584)
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619)
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617)
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306)
+	at scala.meta.internal.metals.Indexer.reindexWorkspaceSources(Indexer.scala:584)
+	at scala.meta.internal.metals.MetalsLspService.$anonfun$onChange$2(MetalsLspService.scala:916)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at scala.concurrent.Future$.$anonfun$apply$1(Future.scala:687)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:840)
+
+2025.10.05 09:20:28 INFO  compiling root (1 scala source)
+2025.10.05 09:20:28 INFO  time: compiled root in 0.37s
+2025.10.05 09:20:32 INFO  compiling root (1 scala source)
+2025.10.05 09:20:32 INFO  time: compiled root in 0.41s
+2025.10.05 09:20:34 INFO  compiling root (1 scala source)
+2025.10.05 09:20:34 INFO  time: compiled root in 0.26s
+2025.10.05 09:20:38 INFO  compiling root (1 scala source)
+2025.10.05 09:20:38 INFO  time: compiled root in 0.9s
+2025.10.05 09:20:53 INFO  compiling root (1 scala source)
+2025.10.05 09:20:53 INFO  time: compiled root in 0.96s
+2025.10.05 09:21:03 INFO  compiling root (1 scala source)
+2025.10.05 09:21:03 INFO  time: compiled root in 0.95s
+2025.10.05 09:21:08 INFO  compiling root (1 scala source)
+2025.10.05 09:21:08 INFO  time: compiled root in 0.92s
+2025.10.05 09:21:12 INFO  compiling root (1 scala source)
+2025.10.05 09:21:14 INFO  time: compiled root in 1.68s
+2025.10.05 09:21:18 INFO  compiling root (1 scala source)
+2025.10.05 09:21:19 INFO  time: compiled root in 1.12s
+2025.10.05 09:22:59 INFO  compiling root (1 scala source)
+2025.10.05 09:22:59 INFO  time: compiled root in 0.46s
+2025.10.05 09:23:03 INFO  compiling root (1 scala source)
+2025.10.05 09:23:03 INFO  time: compiled root in 0.36s
+2025.10.05 09:23:10 INFO  compiling root (1 scala source)
+2025.10.05 09:23:10 INFO  time: compiled root in 0.89s
+2025.10.05 09:23:28 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:28 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala
+2025.10.05 09:23:28 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:28 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala
+2025.10.05 09:23:28 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:30 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:32 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:32 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:32 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala
+2025.10.05 09:23:33 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:41 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:41 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala
+2025.10.05 09:23:41 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:41 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala
+2025.10.05 09:23:41 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:47 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala
+2025.10.05 09:23:47 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala
+2025.10.05 09:23:48 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:48 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:48 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala
+2025.10.05 09:23:48 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Property.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:50 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:50 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:50 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.05 09:23:50 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala

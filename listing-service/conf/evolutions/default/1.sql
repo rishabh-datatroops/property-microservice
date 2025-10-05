@@ -8,13 +8,11 @@ CREATE TABLE properties (
     property_type VARCHAR(100) NOT NULL,
     price DOUBLE PRECISION NOT NULL,
     location VARCHAR(255) NOT NULL,
-    area DOUBLE PRECISION NOT NULL,
+    area DOUBLE PRECISION,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    updated_at TIMESTAMP WITH TIME ZONE NOT NULL
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    deleted_at TIMESTAMP WITH TIME ZONE
 );
 
-# --- !Downs
-
+-- --- !Downs
 DROP TABLE IF EXISTS properties;
-
-

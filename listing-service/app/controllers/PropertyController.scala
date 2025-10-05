@@ -1,22 +1,20 @@
 package controllers
 
-import javax.inject.{Inject, Singleton}
-import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.mvc._
-import play.api.libs.json._
-import models._
-import models.Tables._
-import models.CreateProperty
-import models.UpdateProperty
-import slick.jdbc.PostgresProfile
-import slick.jdbc.PostgresProfile.api._
-import scala.concurrent.{ExecutionContext, Future}
-import java.util.UUID
-import java.time.Instant
 import akka.actor.ActorSystem
 import akka.stream.Materializer
 import kafka.KafkaProducer
 import messages.property._
+import models._
+import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.api.libs.json._
+import play.api.mvc._
+import slick.jdbc.PostgresProfile
+import slick.jdbc.PostgresProfile.api._
+
+import java.time.Instant
+import java.util.UUID
+import javax.inject.{Inject, Singleton}
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class PropertyController @Inject()(
@@ -45,7 +43,8 @@ class PropertyController @Inject()(
       location = createPropertyRequest.location,
       area = createPropertyRequest.area,
       createdAt = Instant.now(),
-      updatedAt = Instant.now()
+      updatedAt = Instant.now(),
+      deletedAt = None
     )
     
     val action = for {
@@ -75,7 +74,7 @@ class PropertyController @Inject()(
   }
 
   def getProperty(id: String) = Action.async {
-    db.run(properties.filter(_.id === UUID.fromString(id)).result.headOption)
+    db.run(properties.filter(p => p.id === UUID.fromString(id) && p.deletedAt.isEmpty).result.headOption)
       .map {
         case Some(prop) => Ok(Json.toJson(prop))
         case None => NotFound
@@ -83,7 +82,8 @@ class PropertyController @Inject()(
   }
 
   def listProperties() = Action.async {
-    db.run(properties.result).map(props => Ok(Json.toJson(props)))
+    db.run(properties.filter(_.deletedAt.isEmpty).result)
+      .map(props => Ok(Json.toJson(props)))
   }
 
   def updateProperty(id: String) = Action.async(parse.json) { request =>
@@ -101,11 +101,11 @@ class PropertyController @Inject()(
             case Some(existingProperty) =>
               val updatedProperty = existingProperty.copy(
                 title = updateRequest.title.getOrElse(existingProperty.title),
-                description = updateRequest.description.getOrElse(existingProperty.description),
+                description = updateRequest.description.orElse(existingProperty.description),
                 propertyType = updateRequest.propertyType.getOrElse(existingProperty.propertyType),
                 price = updateRequest.price.getOrElse(existingProperty.price),
                 location = updateRequest.location.getOrElse(existingProperty.location),
-                area = updateRequest.area.getOrElse(existingProperty.area),
+                area = updateRequest.area.orElse(existingProperty.area),
                 updatedAt = Instant.now()
               )
               properties.filter(_.id === propertyId).update(updatedProperty).map(_ => Some(updatedProperty))
@@ -131,6 +131,8 @@ class PropertyController @Inject()(
             
             kafkaPublisher.sendPropertyEvent(event).map { _ =>
               Ok(Json.toJson(updatedProperty))
+            }.recover { case ex =>
+              Ok(Json.toJson(updatedProperty)) // Still return success even if Kafka fails
             }
           case None =>
             Future.successful(NotFound)
@@ -146,17 +148,24 @@ class PropertyController @Inject()(
       propertyId => {
         val action = for {
           existingOpt <- properties.filter(_.id === propertyId).result.headOption
-          deletedOpt <- existingOpt match {
-            case Some(existingProperty) =>
-              properties.filter(_.id === propertyId).delete.map(_ => Some(existingProperty))
+          updatedOpt <- existingOpt match {
+            case Some(existingProperty) if existingProperty.deletedAt.isEmpty =>
+              val now = Instant.now()
+              val softDeletedProperty = existingProperty.copy(deletedAt = Some(now))
+              properties.filter(_.id === propertyId)
+                .update(softDeletedProperty)
+                .map(_ => Some(softDeletedProperty))
+            case Some(_) =>
+              // Already deleted
+              DBIO.successful(None)
             case None =>
               DBIO.successful(None)
           }
-        } yield deletedOpt
+        } yield updatedOpt
 
         db.run(action.transactionally).flatMap {
           case Some(deletedProperty) =>
-            // Create and send PropertyDeleted event
+            // Send PropertyDeletedEvent to Kafka
             val event = PropertyDeletedEvent(
               propertyId = deletedProperty.id,
               brokerId = deletedProperty.brokerId,
@@ -164,12 +173,18 @@ class PropertyController @Inject()(
               location = deletedProperty.location,
               timestamp = Instant.now()
             )
-            
+
             kafkaPublisher.sendPropertyEvent(event).map { _ =>
-              Ok(Json.obj("success" -> true, "message" -> s"Property ${deletedProperty.title} deleted successfully"))
+              Ok(Json.obj(
+                "success" -> true,
+                "message" -> s"Property ${deletedProperty.title} soft deleted successfully"
+              ))
             }
           case None =>
-            Future.successful(NotFound)
+            Future.successful(NotFound(Json.obj(
+              "success" -> false,
+              "message" -> "Property not found or already deleted"
+            )))
         }
       }
     )

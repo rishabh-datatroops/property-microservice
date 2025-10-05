@@ -10,11 +10,14 @@ import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
+import org.slf4j.LoggerFactory
 
 @Singleton
 class PropertySubscriptionDataFetcher @Inject()(
-  implicit ec: ExecutionContext
-) {
+                                                 implicit ec: ExecutionContext
+                                               ) {
+
+  private val logger = LoggerFactory.getLogger(getClass)
 
   // Actor system for managing subscription state
   private implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "PropertySubscriptionSystem")
@@ -27,9 +30,10 @@ class PropertySubscriptionDataFetcher @Inject()(
       if (subscriber == null) {
         throw new NullPointerException("Subscriber cannot be null")
       }
-      
+
       subscribers.add(subscriber)
-      
+      logger.info(s"New subscriber added: $subscriber | Total subscribers: ${subscribers.size()}")
+
       // Create a subscription for this subscriber
       val subscription = new PropertySubscription(subscriber, this)
       subscriber.onSubscribe(subscription)
@@ -37,16 +41,18 @@ class PropertySubscriptionDataFetcher @Inject()(
 
     def removeSubscriber(subscriber: Subscriber[_ >: Property]): Unit = {
       subscribers.remove(subscriber)
+      logger.info(s"Subscriber removed: $subscriber | Total subscribers: ${subscribers.size()}")
     }
 
     def publish(property: Property): Unit = {
       import scala.jdk.CollectionConverters._
+      logger.info(s"Broadcasting property: ${property.id} to ${subscribers.size()} subscribers")
       subscribers.asScala.foreach { subscriber =>
         try {
           subscriber.onNext(property)
         } catch {
           case e: Exception =>
-            println(s"Error publishing to subscriber: ${e.getMessage}")
+            logger.error(s"Error publishing to subscriber: ${e.getMessage}", e)
             removeSubscriber(subscriber)
         }
       }
@@ -54,9 +60,9 @@ class PropertySubscriptionDataFetcher @Inject()(
   }
 
   private class PropertySubscription(
-    subscriber: Subscriber[_ >: Property],
-    publisher: PropertyPublisher
-  ) extends Subscription {
+                                      subscriber: Subscriber[_ >: Property],
+                                      publisher: PropertyPublisher
+                                    ) extends Subscription {
     private val cancelled = new AtomicBoolean(false)
 
     override def request(n: Long): Unit = {
@@ -67,6 +73,7 @@ class PropertySubscriptionDataFetcher @Inject()(
     override def cancel(): Unit = {
       if (cancelled.compareAndSet(false, true)) {
         publisher.removeSubscriber(subscriber)
+        logger.info(s"Subscription cancelled by subscriber: $subscriber")
       }
     }
   }
@@ -74,29 +81,17 @@ class PropertySubscriptionDataFetcher @Inject()(
   private val publisher = new PropertyPublisher()
 
   // Data fetcher that returns a reactive stream publisher
-  val newProperty: DataFetcher[Publisher[Property]] = _ => {
-    publisher
+  val newProperty: DataFetcher[Publisher[Property]] = _ => publisher
+
+  // Broadcast a new property to all subscribers
+  def broadcastProperty(property: Property): Future[Unit] = Future {
+    logger.info(s"Broadcasting property event for propertyId: ${property.id}")
+    publisher.publish(property)
   }
 
-  // Method to broadcast new properties to all subscribers
-  def broadcastProperty(property: Property): Future[Unit] = {
-    Future {
-      publisher.publish(property)
-    }
-  }
+  // Broadcast property updates
+  def broadcastPropertyUpdate(property: Property): Future[Unit] = broadcastProperty(property)
 
-  // Method to broadcast property updates
-  def broadcastPropertyUpdate(property: Property): Future[Unit] = {
-    broadcastProperty(property)
-  }
-
-  // Method to broadcast property creation
-  def broadcastPropertyCreated(property: Property): Future[Unit] = {
-    broadcastProperty(property)
-  }
-
-  // Cleanup method
-  def shutdown(): Unit = {
-    system.terminate()
-  }
+  // Broadcast property creation
+  def broadcastPropertyCreated(property: Property): Future[Unit] = broadcastProperty(property)
 }

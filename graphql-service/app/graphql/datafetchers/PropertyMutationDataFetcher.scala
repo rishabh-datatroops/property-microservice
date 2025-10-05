@@ -1,12 +1,12 @@
 package graphql.datafetchers
 
-import api.property.{CreatePropertyRequest, UpdatePropertyRequest, DeletePropertyRequest}
-import javax.inject._
+import api.property.{CreatePropertyRequest, DeletePropertyRequest, UpdatePropertyRequest}
 import graphql.schema.DataFetcher
-import messages.property.{Property, CreateProperty, UpdateProperty}
+import messages.property.{CreateProperty, Property, UpdateProperty}
 import services.PropertyUpdateService
+
 import java.util.UUID
-import java.time.Instant
+import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
 import scala.jdk.FutureConverters._
 
@@ -30,11 +30,11 @@ class PropertyMutationDataFetcher @Inject()(
   ): CreateProperty = CreateProperty(
     brokerId = brokerId,
     title = title,
-    description = description,
+    description = Option(description),
     propertyType = propertyType,
     price = price,
     location = location,
-    area = area
+    area = Option(area)
   )
 
   /** Single createProperty data fetcher */

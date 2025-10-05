@@ -23,11 +23,11 @@ class SubscriptionTestController @Inject()(
       id = UUID.randomUUID(),
       brokerId = UUID.randomUUID(),
       title = "Test Property for Subscription",
-      description = "This is a test property to demonstrate real-time subscriptions",
+      description = Some("This is a test property to demonstrate real-time subscriptions"),
       propertyType = "Apartment",
       price = 250000.0,
       location = "Test Location",
-      area = 120.0,
+      area = Some(120.0),
       createdAt = Instant.now(),
       updatedAt = Instant.now()
     )
@@ -48,11 +48,11 @@ class SubscriptionTestController @Inject()(
       id = UUID.randomUUID(),
       brokerId = UUID.randomUUID(),
       title = "Updated Test Property",
-      description = "This property has been updated to test subscriptions",
+      description = Some("This property has been updated to test subscriptions"),
       propertyType = "House",
       price = 300000.0,
       location = "Updated Test Location",
-      area = 150.0,
+      area = Some(150.0),
       createdAt = Instant.now(),
       updatedAt = Instant.now()
     )

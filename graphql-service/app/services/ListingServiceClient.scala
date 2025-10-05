@@ -99,10 +99,7 @@ class ListingServiceClient @Inject()(config: Configuration)(implicit ec: Executi
 
   def deleteProperty(id: String): Future[Boolean] = {
     println(s"[DEBUG] Deleting property with id: $id")
-    println(s"[DEBUG] Making DELETE request to: $listingServiceUrl/api/properties/$id")
-    
     makeHttpRequest("DELETE", s"$listingServiceUrl/api/properties/$id").map { response =>
-      println(s"[DEBUG] Delete response status: ${response.statusCode()}")
       println(s"[DEBUG] Delete response body: ${response.body()}")
       response.statusCode() match {
         case 200 => true
