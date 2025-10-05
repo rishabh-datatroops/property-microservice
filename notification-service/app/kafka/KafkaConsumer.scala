@@ -1,24 +1,29 @@
 package kafka
 
-import javax.inject.{Inject, Singleton}
 import akka.actor.ActorSystem
-import akka.kafka.ConsumerSettings
+import akka.kafka.{ConsumerSettings, Subscriptions}
 import akka.kafka.scaladsl.Consumer
+import akka.stream.Materializer
+import messages.property.{PropertyCreatedEvent, PropertyDeletedEvent, PropertyEvent, PropertyUpdatedEvent}
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.StringDeserializer
-import play.api.libs.json._
+import org.slf4j.LoggerFactory
 import play.api.Configuration
-import akka.stream.Materializer
-import scala.concurrent.ExecutionContext
+import play.api.libs.json._
 import services.NotificationService
-import messages.property.{PropertyEvent, PropertyCreatedEvent, PropertyUpdatedEvent, PropertyDeletedEvent}
+
+import javax.inject.{Inject, Singleton}
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Success}
 
 @Singleton
 class KafkaConsumer @Inject()(
-  system: ActorSystem,
-  config: Configuration,
-  notificationService: NotificationService
-)(implicit ec: ExecutionContext, mat: Materializer) {
+                               system: ActorSystem,
+                               config: Configuration,
+                               notificationService: NotificationService
+                             )(implicit ec: ExecutionContext, mat: Materializer) {
+
+  private val logger = LoggerFactory.getLogger(getClass)
 
   private val bootstrapServers = config.get[String]("kafka.bootstrapServers")
   private val groupId = config.get[String]("kafka.consumer.groupId")
@@ -31,35 +36,42 @@ class KafkaConsumer @Inject()(
 
   def start(): Unit = {
     try {
-      // Use a simpler approach with explicit materializer
       import akka.stream.scaladsl.Sink
-      
-      val source = Consumer.plainSource(consumerSettings, akka.kafka.Subscriptions.topics(topic))
-      
-      source.runWith(Sink.foreach { record =>
-        try {
-          val eventJson = Json.parse(record.value())
-          val event = eventJson.as[PropertyEvent]
 
-          // Process the event based on its type
-          event match {
-            case createdEvent: PropertyCreatedEvent =>
-              notificationService.processPropertyCreatedEvent(createdEvent)
-            case updatedEvent: PropertyUpdatedEvent =>
-              notificationService.processPropertyUpdatedEvent(updatedEvent)
-            case deletedEvent: PropertyDeletedEvent =>
-              notificationService.processPropertyDeletedEvent(deletedEvent)
+      val source = Consumer.plainSource(consumerSettings, Subscriptions.topics(topic))
+
+      // Process events sequentially => mapAsync(1) keeps ordering and allows backpressure
+      source
+        .mapAsync(1) { record =>
+          Future {
+            record
+          }.flatMap { r =>
+            try {
+              val eventJson = Json.parse(r.value())
+              val event = eventJson.as[PropertyEvent]
+              event match {
+                case created: PropertyCreatedEvent =>
+                  notificationService.processPropertyCreatedEvent(created)
+                case updated: PropertyUpdatedEvent =>
+                  notificationService.processPropertyUpdatedEvent(updated)
+                case deleted: PropertyDeletedEvent =>
+                  notificationService.processPropertyDeletedEvent(deleted)
+              }
+            } catch {
+              case ex: Throwable =>
+                logger.error(s"Failed to parse/process record: offset=${r.offset()} key=${r.key()}", ex)
+                Future.successful(())
+            }
+          }.andThen {
+            case Success(_) =>
+            case Failure(ex) => logger.error("Error processing kafka event", ex)
           }
-
-        } catch {
-          case e: Exception =>
-            // Error processing Kafka message
         }
-      })(mat)
-      
+        .runWith(Sink.ignore)(mat)
+
     } catch {
       case e: Exception =>
-        // Failed to start Kafka consumer
+        logger.error("Failed to start Kafka consumer", e)
     }
   }
 }

@@ -8,11 +8,11 @@ case class Property(
                      id: UUID,
                      brokerId: UUID,
                      title: String,
-                     description: String,
+                     description: Option[String],
                      propertyType: String,
                      price: Double,
                      location: String,
-                     area: Double,
+                     area: Option[Double],
                      createdAt: Instant,
                      updatedAt: Instant
                    )

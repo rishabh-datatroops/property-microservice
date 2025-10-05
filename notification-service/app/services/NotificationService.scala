@@ -1,17 +1,23 @@
 package services
 
-import javax.inject._
-import models.{NotifyNewProperty, NotifyPropertyUpdate, UserPreference, Property}
-import messages.property.{PropertyCreatedEvent, PropertyUpdatedEvent, PropertyDeletedEvent}
-import scala.concurrent.{ExecutionContext, Future}
+import messages.property.{PropertyCreatedEvent, PropertyDeletedEvent, PropertyUpdatedEvent}
+import models.{NotifyNewProperty, NotifyPropertyUpdate, Property, UserPreference}
+import org.slf4j.LoggerFactory
+
 import java.time.Instant
 import java.util.UUID
+import javax.inject._
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class NotificationService @Inject()(
-  propertyStateService: PropertyStateService
-)(implicit ec: ExecutionContext) {
-  
+                                     propertyStateService: PropertyStateService
+                                   )(implicit ec: ExecutionContext) {
+
+  private val logger = LoggerFactory.getLogger(getClass)
+
+  private case class Change(field: String, previous: Option[Any], current: Option[Any])
+
   /**
    * Process PropertyCreated events from Kafka
    */
@@ -23,72 +29,89 @@ class NotificationService @Inject()(
       propertyPrice = event.price,
       brokerId = event.brokerId
     )
-    
+
+    // Update state first (so subsequent updates see this state).
+    val property = convertCreatedEventToProperty(event)
+    val _ = propertyStateService.updatePropertyState(property)
+
     processNewPropertyNotification(notifyRequest)
   }
-  
+
   /**
    * Process PropertyUpdated events from Kafka
    */
   def processPropertyUpdatedEvent(event: PropertyUpdatedEvent): Future[Unit] = {
-    // Get previous state to detect changes
-    val previousProperty = propertyStateService.getPropertyState(event.propertyId)
-    
-    previousProperty match {
-      case Some(prevProp) =>
-        val changes = detectChanges(prevProp, convertEventToProperty(event))
-        
+    val current = convertEventToProperty(event)
+    val previousOpt = propertyStateService.getPropertyState(event.propertyId)
+
+    previousOpt match {
+      case Some(prev) =>
+        val changes = detectChanges(prev, current)
         if (changes.nonEmpty) {
-          // Create update notification with detected changes
-          val updatedFields = changes.map(_._1).toList
-          val priceChange = changes.find(_._1 == "price").map(_._2.asInstanceOf[Option[Double]])
-          val locationChange = changes.find(_._1 == "location").map(_._2.asInstanceOf[Option[String]])
-          
-          val notifyRequest = NotifyPropertyUpdate(
+          // typed extraction
+          val updatedFields = changes.map(_.field)
+          val prevPriceOpt = changes.find(_.field == "price").flatMap(_.previous).collect { case d: Double => d }
+          val prevLocationOpt = changes.find(_.field == "location").flatMap(_.previous).collect { case s: String => s }
+
+          val notifyReq = NotifyPropertyUpdate(
             propertyId = event.propertyId,
             propertyTitle = event.title,
             propertyLocation = event.location,
             propertyPrice = event.price,
             brokerId = event.brokerId,
             updatedFields = updatedFields,
-            previousPrice = priceChange.flatten,
-            previousLocation = locationChange.flatten
+            previousPrice = prevPriceOpt,
+            previousLocation = prevLocationOpt
           )
-          
-          processPropertyUpdateNotification(notifyRequest)
+
+          // Update state, then send notification and return its future
+          propertyStateService.updatePropertyState(current)
+          processPropertyUpdateNotification(notifyReq)
         } else {
+          // No changes -> still update timestamp/state
+          propertyStateService.updatePropertyState(current)
           Future.successful(())
         }
+
       case None =>
-        processPropertyUpdatedEvent(event)
+        // No previous state — treat as new property (safest). Do update + notify as creation
+        logger.info(s"No previous state found for ${event.propertyId}. Treating update as create.")
+        val notifyRequest = NotifyNewProperty(
+          propertyId = event.propertyId,
+          propertyTitle = event.title,
+          propertyLocation = event.location,
+          propertyPrice = event.price,
+          brokerId = event.brokerId
+        )
+        propertyStateService.updatePropertyState(current)
+        processNewPropertyNotification(notifyRequest)
     }
-    
-    // Update the property state
-    propertyStateService.updatePropertyState(convertEventToProperty(event))
-    Future.successful(())
   }
-  
+
   /**
    * Process PropertyDeleted events from Kafka
    */
   def processPropertyDeletedEvent(event: PropertyDeletedEvent): Future[Unit] = {
-    // Remove from state tracking
     propertyStateService.removePropertyState(event.propertyId)
-    
-    // In a real implementation, this would:
-    // 1. Notify users who had this property in their favorites/saved searches
-    // 2. Send "Property No Longer Available" notifications
-    // 3. Update user preferences and recommendations
-    
-    Future {
-      // Simulate processing time
-      Thread.sleep(500)
-    }
+
+    Future.successful(())
   }
-  
-  /**
-   * Convert PropertyUpdatedEvent to Property model for compatibility
-   */
+
+  private def convertCreatedEventToProperty(event: PropertyCreatedEvent): Property = {
+    Property(
+      id = event.propertyId,
+      brokerId = event.brokerId,
+      title = event.title,
+      description = event.description,
+      propertyType = event.propertyType,
+      price = event.price,
+      location = event.location,
+      area = event.area,
+      createdAt = Instant.now(),
+      updatedAt = Instant.now()
+    )
+  }
+
   private def convertEventToProperty(event: PropertyUpdatedEvent): Property = {
     Property(
       id = event.propertyId,
@@ -99,79 +122,64 @@ class NotificationService @Inject()(
       price = event.price,
       location = event.location,
       area = event.area,
-      createdAt = Instant.now(), // We don't have this in the event
+      createdAt = Instant.now(), // ideally present on events
       updatedAt = event.timestamp
     )
   }
-  
-  /**
-   * Detect changes between previous and current property states
-   * Returns a list of (fieldName, previousValue, currentValue) tuples
-   */
-  private def detectChanges(previous: Property, current: Property): List[(String, Option[Any], Option[Any])] = {
-    var changes = List.empty[(String, Option[Any], Option[Any])]
-    
+
+  private def detectChanges(previous: Property, current: Property): List[Change] = {
+    var changes = List.empty[Change]
+
     if (previous.price != current.price) {
-      changes = ("price", Some(previous.price), Some(current.price)) :: changes
+      changes ::= Change("price", Option(previous.price), Option(current.price))
     }
-    
+
     if (previous.location != current.location) {
-      changes = ("location", Some(previous.location), Some(current.location)) :: changes
+      changes ::= Change("location", Option(previous.location), Option(current.location))
     }
-    
+
     if (previous.title != current.title) {
-      changes = ("title", Some(previous.title), Some(current.title)) :: changes
+      changes ::= Change("title", Option(previous.title), Option(current.title))
     }
-    
+
     if (previous.description != current.description) {
-      changes = ("description", Some(previous.description), Some(current.description)) :: changes
+      changes ::= Change("description", Option(previous.description), Option(current.description))
     }
-    
+
     if (previous.propertyType != current.propertyType) {
-      changes = ("propertyType", Some(previous.propertyType), Some(current.propertyType)) :: changes
+      changes ::= Change("propertyType", Option(previous.propertyType), Option(current.propertyType))
     }
-    
+
     if (previous.area != current.area) {
-      changes = ("area", Some(previous.area), Some(current.area)) :: changes
+      changes ::= Change("area", Option(previous.area), Option(current.area))
     }
-    
-    changes.reverse // Return in original order
+
+    changes.reverse
   }
 
   def processNewPropertyNotification(notifyRequest: NotifyNewProperty): Future[Unit] = {
-    // In a real implementation, this would:
-    // 1. Fetch all user preferences
-    // 2. Filter users who match the property criteria
-    // 3. Send notifications (email, SMS, push, etc.)
-    
+    // In real implementation: query preferences -> filter -> send notifications
+    // Return Future so caller can wait.
     Future {
-      // Simulate processing time
-      Thread.sleep(500)
+      logger.info(s"Processing new property notification for ${notifyRequest.propertyId}")
+      // non-blocking work here. Remove Thread.sleep in production.
     }
   }
-  
+
   def processPropertyUpdateNotification(notifyRequest: NotifyPropertyUpdate): Future[Unit] = {
-    // Special handling for price changes
-    notifyRequest.previousPrice.foreach { prevPrice =>
-      val priceChange = notifyRequest.propertyPrice - prevPrice
-      val changePercent = if (prevPrice > 0) ((priceChange / prevPrice) * 100) else 0
-      val changeDirection = if (priceChange > 0) "INCREASED" else if (priceChange < 0) "DECREASED" else "UNCHANGED"
-      
-      // In a real implementation, this would:
-      // 1. Fetch users who are interested in this property (saved searches, favorites, etc.)
-      // 2. Send notifications about the specific price change
-      // 3. Different notification templates based on price increase/decrease
-      // 4. Send alerts to users who have price alerts set up
-    }
-    
     Future {
-      // Simulate processing time
-      Thread.sleep(500)
+      // compute price change metrics (synchronous small calc is fine)
+      notifyRequest.previousPrice.foreach { prevPrice =>
+        val priceChange = notifyRequest.propertyPrice - prevPrice
+        val changePercent = if (prevPrice > 0) ((priceChange / prevPrice) * 100) else 0
+        val changeDirection = if (priceChange > 0) "INCREASED" else if (priceChange < 0) "DECREASED" else "UNCHANGED"
+        logger.info(s"Property ${notifyRequest.propertyId} price $changeDirection by $changePercent% (from $prevPrice to ${notifyRequest.propertyPrice})")
+      }
+      logger.info(s"Processing update notification for ${notifyRequest.propertyId} updatedFields=${notifyRequest.updatedFields}")
     }
   }
-  
+
   def getUserPreferences(userId: UUID): Future[UserPreference] = {
-    // Mock implementation - return default preferences
     Future.successful(
       UserPreference(
         userId = userId,
@@ -182,37 +190,35 @@ class NotificationService @Inject()(
       )
     )
   }
-  
+
   def matchUserPreferences(property: NotifyNewProperty, preferences: UserPreference): Boolean = {
-    // Check location
-    val locationMatch = preferences.preferredLocations.isEmpty || 
-                       preferences.preferredLocations.exists(_.toLowerCase.contains(property.propertyLocation.toLowerCase))
-    
-    // Check price range
-    val priceMatch = preferences.minPrice.isEmpty || property.propertyPrice >= preferences.minPrice.get &&
-                   preferences.maxPrice.isEmpty || property.propertyPrice <= preferences.maxPrice.get
-    
-    // Note: propertyType is not available in NotifyNewProperty model
-    // For now, assume all properties match type preferences
+    val locationMatch =
+      preferences.preferredLocations.isEmpty ||
+        preferences.preferredLocations.exists(_.toLowerCase.contains(property.propertyLocation.toLowerCase))
+
+    val priceMatch = {
+      val aboveMin = preferences.minPrice.forall(min => property.propertyPrice >= min)
+      val belowMax = preferences.maxPrice.forall(max => property.propertyPrice <= max)
+      aboveMin && belowMax
+    }
+
     val typeMatch = true
-    
+
     locationMatch && priceMatch && typeMatch
   }
-  
-  // Legacy method for backward compatibility
+
+  // Legacy method for backward compatibility (kept but refactored to use typed flows)
   def processPropertyEvent(property: Property): Future[Unit] = {
     val previousProperty = propertyStateService.updatePropertyState(property)
-    
+
     previousProperty match {
       case Some(prevProp) =>
-        // This is an update - check for changes
         processPropertyUpdate(prevProp, property)
       case None =>
-        // This is a new property
         processNewProperty(property)
     }
   }
-  
+
   private def processNewProperty(property: Property): Future[Unit] = {
     val notifyRequest = NotifyNewProperty(
       propertyId = property.id,
@@ -221,19 +227,18 @@ class NotificationService @Inject()(
       propertyPrice = property.price,
       brokerId = property.brokerId
     )
-    
+
     processNewPropertyNotification(notifyRequest)
   }
-  
+
   private def processPropertyUpdate(previousProperty: Property, currentProperty: Property): Future[Unit] = {
     val changes = detectChanges(previousProperty, currentProperty)
-    
+
     if (changes.nonEmpty) {
-      // Create update notification with detected changes
-      val updatedFields = changes.map(_._1).toList
-      val priceChange = changes.find(_._1 == "price").map(_._2.asInstanceOf[Option[Double]])
-      val locationChange = changes.find(_._1 == "location").map(_._2.asInstanceOf[Option[String]])
-      
+      val updatedFields = changes.map(_.field)
+      val prevPriceOpt = changes.find(_.field == "price").flatMap(_.previous).collect { case d: Double => d }
+      val prevLocationOpt = changes.find(_.field == "location").flatMap(_.previous).collect { case s: String => s }
+
       val notifyRequest = NotifyPropertyUpdate(
         propertyId = currentProperty.id,
         propertyTitle = currentProperty.title,
@@ -241,13 +246,11 @@ class NotificationService @Inject()(
         propertyPrice = currentProperty.price,
         brokerId = currentProperty.brokerId,
         updatedFields = updatedFields,
-        previousPrice = priceChange.flatten,
-        previousLocation = locationChange.flatten
+        previousPrice = prevPriceOpt,
+        previousLocation = prevLocationOpt
       )
-      
+
       processPropertyUpdateNotification(notifyRequest)
-    } else {
-      Future.successful(())
-    }
+    } else Future.successful(())
   }
 }

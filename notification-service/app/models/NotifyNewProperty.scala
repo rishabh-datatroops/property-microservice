@@ -17,9 +17,9 @@ case class NotifyPropertyUpdate(
   propertyLocation: String,
   propertyPrice: Double,
   brokerId: UUID,
-  updatedFields: List[String], // List of fields that were updated (e.g., ["price", "location"])
-  previousPrice: Option[Double] = None, // Previous price if price was updated
-  previousLocation: Option[String] = None // Previous location if location was updated
+  updatedFields: List[String],
+  previousPrice: Option[Double] = None,
+  previousLocation: Option[String] = None
 )
 
 case class NotificationSent(

@@ -4,7 +4,7 @@ import javax.inject.{Inject, Singleton}
 import models.Property
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 @Singleton
 class PropertyStateService @Inject()(implicit ec: ExecutionContext) {
@@ -40,19 +40,5 @@ class PropertyStateService @Inject()(implicit ec: ExecutionContext) {
   def removePropertyState(propertyId: UUID): Option[Property] = {
     val removedProperty = propertyStates.remove(propertyId)
     Option(removedProperty)
-  }
-
-  /**
-   * Clears all stored property states. Useful for testing or system resets.
-   */
-  def clearAllStates(): Unit = {
-    propertyStates.clear()
-  }
-
-  /**
-   * Returns the number of properties currently tracked.
-   */
-  def getTrackedPropertyCount(): Int = {
-    propertyStates.size()
   }
 }
