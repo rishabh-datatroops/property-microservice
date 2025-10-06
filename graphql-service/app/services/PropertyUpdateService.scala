@@ -1,10 +1,10 @@
 package services
 
-import javax.inject._
-import messages.property.Property
 import graphql.datafetchers.PropertySubscriptionDataFetcher
+import messages.property.Property
+
+import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success}
 
 @Singleton
 class PropertyUpdateService @Inject()(

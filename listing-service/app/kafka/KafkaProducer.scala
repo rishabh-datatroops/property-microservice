@@ -24,15 +24,15 @@ class KafkaProducer(system: ActorSystem, topic: String)(implicit ec: ExecutionCo
 
   def sendPropertyEvent(event: PropertyEvent)(implicit mat: Materializer): Future[Unit] = {
     val eventJson = Json.toJson(event)
-    val record = new ProducerRecord[String, String](topic, event.propertyId.toString, eventJson.toString())
+    val record = new ProducerRecord[String, String](topic, event.propertyId.toString, Json.stringify(eventJson))
     Source.single(record)
       .runWith(Producer.plainSink(producerSettings))
       .map { _ =>
-        // Event sent successfully
+        system.log.info(s"Property event sent: ${event.propertyId}")
       }
       .recover { case ex =>
-        system.log.error(s"Failed to send property event: ${ex.getMessage}", ex)
-        throw ex
+        system.log.error(s"Failed to send property event for ${event.propertyId}: ${ex.getMessage}", ex)
+        Future.failed(ex)
       }
   }
 }

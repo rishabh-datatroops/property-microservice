@@ -77,7 +77,10 @@ object PropertyEvent {
     }
     
     def reads(json: JsValue): JsResult[PropertyEvent] = {
-      val eventType = (json \ "eventType").as[String]
+      // Try to get eventType from JSON, if not present, assume PropertyCreated
+      val eventTypeOpt = (json \ "eventType").asOpt[String]
+      val eventType = eventTypeOpt.getOrElse("PropertyCreated")
+      
       eventType match {
         case "PropertyCreated" => Json.fromJson[PropertyCreatedEvent](json)
         case "PropertyUpdated" => Json.fromJson[PropertyUpdatedEvent](json)

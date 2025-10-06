@@ -2,25 +2,29 @@ package config
 
 import javax.inject.{Inject, Singleton}
 import play.api.inject.ApplicationLifecycle
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import kafka.KafkaConsumer
+import org.slf4j.LoggerFactory
 
 @Singleton
 class KafkaStartupHook @Inject()(
-  kafkaConsumer: KafkaConsumer,
-  lifecycle: ApplicationLifecycle
-) {
-  
-  // Start Kafka consumer when application starts
+                                  kafkaConsumer: KafkaConsumer,
+                                  lifecycle: ApplicationLifecycle
+                                )(implicit ec: ExecutionContext) {
+
+  private val logger = LoggerFactory.getLogger(getClass)
+
   try {
     kafkaConsumer.start()
+    logger.info("KafkaConsumer started successfully")
   } catch {
     case e: Exception =>
-      // Kafka consumer failed to start
+      logger.error("Failed to start KafkaConsumer", e)
   }
-  
-  // Cleanup when application stops
+
+  // Graceful shutdown
   lifecycle.addStopHook { () =>
+    kafkaConsumer.stop()
     Future.successful(())
   }
 }

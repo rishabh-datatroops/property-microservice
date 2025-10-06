@@ -20,12 +20,13 @@ import scala.concurrent.{ExecutionContext, Future}
 class PropertyController @Inject()(
   val controllerComponents: ControllerComponents,
   protected val dbConfigProvider: DatabaseConfigProvider,
-  system: ActorSystem
-)(implicit ec: ExecutionContext, mat: Materializer) 
+  system: ActorSystem,
+  mat: Materializer
+)(implicit ec: ExecutionContext) 
   extends BaseController with HasDatabaseConfigProvider[PostgresProfile] {
 
   val properties = TableQuery[Properties]
-  val kafkaPublisher = new KafkaProducer(system, "property-events")
+  val kafkaPublisher = new KafkaProducer(system, "property-events")(ec)
 
   implicit val propertyFormat: Format[Property] = Property.format
   implicit val createPropertyFormat: Format[CreateProperty] = CreateProperty.format
@@ -65,7 +66,7 @@ class PropertyController @Inject()(
         timestamp = createdProperty.createdAt
       )
       
-      kafkaPublisher.sendPropertyEvent(event).map { _ =>
+      kafkaPublisher.sendPropertyEvent(event)(mat).map { _ =>
         Ok(Json.toJson(createdProperty))
       }.recover { case ex =>
         Ok(Json.toJson(createdProperty)) // Still return success even if Kafka fails
@@ -129,7 +130,7 @@ class PropertyController @Inject()(
               timestamp = updatedProperty.updatedAt
             )
             
-            kafkaPublisher.sendPropertyEvent(event).map { _ =>
+            kafkaPublisher.sendPropertyEvent(event)(mat).map { _ =>
               Ok(Json.toJson(updatedProperty))
             }.recover { case ex =>
               Ok(Json.toJson(updatedProperty)) // Still return success even if Kafka fails
@@ -174,7 +175,7 @@ class PropertyController @Inject()(
               timestamp = Instant.now()
             )
 
-            kafkaPublisher.sendPropertyEvent(event).map { _ =>
+            kafkaPublisher.sendPropertyEvent(event)(mat).map { _ =>
               Ok(Json.obj(
                 "success" -> true,
                 "message" -> s"Property ${deletedProperty.title} soft deleted successfully"
