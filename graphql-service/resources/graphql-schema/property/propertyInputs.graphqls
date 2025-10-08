@@ -1,0 +1,21 @@
+input CreatePropertyInput {
+  title: String!
+  price: Float!
+  location: String!
+  propertyType: String!
+  description: String
+  area: Float
+  brokerId: String
+}
+
+input UpdatePropertyInput {
+  id: ID!
+  title: String
+  price: Float
+  location: String
+  propertyType: String
+  description: String
+  area: Float
+}
+
+

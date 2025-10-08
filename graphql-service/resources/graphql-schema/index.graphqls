@@ -1,0 +1,20 @@
+scalar JSON
+scalar Long
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+  subscription: SubscriptionRoot
+}
+
+type QueryRoot {
+  empty: Int
+}
+
+type MutationRoot {
+  empty: Int
+}
+
+type SubscriptionRoot {
+  empty: Int
+}
+

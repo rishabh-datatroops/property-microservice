@@ -17,6 +17,7 @@ RUN sbt update
 COPY conf ./conf
 COPY app ./app
 COPY public ./public
+COPY resources ./resources
 COPY test ./test
 
 # Build application

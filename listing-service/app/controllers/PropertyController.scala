@@ -97,7 +97,7 @@ class PropertyController @Inject()(
       propertyId => {
         // Transactional DB action
         val action = for {
-          existingOpt <- properties.filter(_.id === propertyId).result.headOption
+          existingOpt <- properties.filter(p => p.id === propertyId && p.deletedAt.isEmpty).result.headOption
           updatedOpt <- existingOpt match {
             case Some(existingProperty) =>
               val updatedProperty = existingProperty.copy(
@@ -109,7 +109,7 @@ class PropertyController @Inject()(
                 area = updateRequest.area.orElse(existingProperty.area),
                 updatedAt = Instant.now()
               )
-              properties.filter(_.id === propertyId).update(updatedProperty).map(_ => Some(updatedProperty))
+              properties.filter(p => p.id === propertyId && p.deletedAt.isEmpty).update(updatedProperty).map(_ => Some(updatedProperty))
             case None =>
               DBIO.successful(None)
           }
