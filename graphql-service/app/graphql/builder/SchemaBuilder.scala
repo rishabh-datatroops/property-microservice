@@ -1,14 +1,13 @@
 package graphql.builder
 
-import javax.inject._
-import graphql.schema._
-import graphql.schema.idl._
-import graphql.schema.idl.RuntimeWiring._
-import graphql.schema.idl.TypeRuntimeWiring._
 import graphql.GraphQL
-import graphql.execution.AsyncExecutionStrategy
-import graphql.execution.AsyncSerialExecutionStrategy
+import graphql.execution.{AsyncExecutionStrategy, AsyncSerialExecutionStrategy}
+import graphql.schema.idl._
+import graphql.scalars.ExtendedScalars
+
+import javax.inject._
 import scala.concurrent.ExecutionContext
+import scala.io.Source
 
 @Singleton
 class SchemaBuilder @Inject()(
@@ -17,74 +16,66 @@ class SchemaBuilder @Inject()(
   subscriptionBuilder: SubscriptionBuilder
 )(implicit ec: ExecutionContext) {
 
-  private val schemaDefinition = """
-  type Property {
-    id: ID!
-    title: String!
-    description: String
-    propertyType: String!
-    price: Float!
-    location: String!
-    area: Float
-    createdAt: String!
-    updatedAt: String!
+  // Base schema files (types and inputs)
+  private val baseSchemaFiles = Seq(
+    "graphql-schema/property/propertyTypes.graphqls",
+    "graphql-schema/property/propertyInputs.graphqls",
+    "graphql-schema/index.graphqls"
+  )
+
+  private def loadSchemaFromResource(path: String): String = {
+    val stream = getClass.getClassLoader.getResourceAsStream(path)
+    if (stream == null) {
+      throw new RuntimeException(s"Could not load schema file: $path")
+    }
+    val content = Source.fromInputStream(stream).mkString
+    stream.close()
+    content
   }
 
-  type Query {
-    listProperties: [Property!]!
-    property(id: ID!): Property
+  private def loadBaseSchemas(typeRegistry: TypeDefinitionRegistry): Unit = {
+    val schemaParser = new SchemaParser()
+    baseSchemaFiles.foreach { path =>
+      val content = loadSchemaFromResource(path)
+      typeRegistry.merge(schemaParser.parse(content))
+    }
   }
 
-  input CreatePropertyInput {
-    title: String!
-    price: Float!
-    location: String!
-    propertyType: String!
-    description: String
-    area: Float
-    brokerId: String
+  // Build type registry by merging all schemas
+  private val typeRegistry = {
+    val registry = new TypeDefinitionRegistry()
+    
+    // Load base schemas first
+    loadBaseSchemas(registry)
+    
+    // Merge schemas from builders
+    queryBuilder.mergeSchema(registry)
+    mutationBuilder.mergeSchema(registry)
+    subscriptionBuilder.mergeSchema(registry)
+    
+    registry
   }
 
-  input UpdatePropertyInput {
-    id: ID!
-    title: String
-    price: Float
-    location: String
-    propertyType: String
-    description: String
-    area: Float
-  }
-
-  type Mutation {
-    createProperty(input: CreatePropertyInput!): Property!
-    updateProperty(input: UpdatePropertyInput!): Property!
-    updatePropertyPrice(id: ID!, price: Float!): Property!
-    deleteProperty(id: ID!): Boolean!
-  }
-
-  type Subscription {
-    newProperty: Property!
-  }
-
-  schema {
-    query: Query
-    mutation: Mutation
-    subscription: Subscription
-  }
-"""
-
-
+  // Build runtime wiring using builders
   private val runtimeWiring = {
-    RuntimeWiring.newRuntimeWiring()
-      .`type`("Query", (builder: TypeRuntimeWiring.Builder) => queryBuilder.buildTypeWiring())
-      .`type`("Mutation", (builder: TypeRuntimeWiring.Builder) => mutationBuilder.buildTypeWiring())
-      .`type`("Subscription", (builder: TypeRuntimeWiring.Builder) => subscriptionBuilder.buildTypeWiring())
-      .build()
+    val builder = RuntimeWiring.newRuntimeWiring()
+    
+    // Add custom scalar types
+    builder.scalar(ExtendedScalars.Json)
+    builder.scalar(ExtendedScalars.GraphQLLong)
+    
+    // Add wiring from each builder
+    queryBuilder.addRuntimeWiring(builder)
+    mutationBuilder.addRuntimeWiring(builder)
+    subscriptionBuilder.addRuntimeWiring(builder)
+    
+    builder.build()
   }
 
-  private val typeRegistry = new SchemaParser().parse(schemaDefinition)
+  // Generate the executable schema
   private val schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, runtimeWiring)
 
+  // Build the GraphQL instance
   val graphQL: GraphQL = GraphQL.newGraphQL(schema)
     .queryExecutionStrategy(new AsyncExecutionStrategy())
     .mutationExecutionStrategy(new AsyncSerialExecutionStrategy())

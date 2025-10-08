@@ -1,0 +1,8 @@
+extend type MutationRoot {
+  createProperty(input: CreatePropertyInput!): Property!
+  updateProperty(input: UpdatePropertyInput!): Property!
+  updatePropertyPrice(id: ID!, price: Float!): Property!
+  deleteProperty(id: ID!): Boolean!
+}
+
+

@@ -1,0 +1,6 @@
+extend type QueryRoot {
+  listProperties: [Property!]!
+  property(id: ID!): Property
+}
+
+

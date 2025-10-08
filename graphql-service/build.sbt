@@ -18,5 +18,8 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-log4j12" % "1.7.36"
 )
 
+// Add resources directory to classpath
+Compile / unmanagedResourceDirectories += baseDirectory.value / "resources"
+
 // Resolve dependency conflicts
 ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always

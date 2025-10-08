@@ -3027,3 +3027,110 @@ java.nio.file.NoSuchFileException: /Users/rishabh/Property-microservice/graphql-
 2025.10.05 09:23:50 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
 2025.10.05 09:23:50 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala. Using presentation compiler with project's scala-library version: 2.13.16
 2025.10.05 09:23:50 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/models/Tables.scala
+2025.10.08 12:24:21 INFO  Started: Metals version 1.6.2 in folders '/Users/rishabh/Property-microservice' for client Cursor 1.99.3.
+2025.10.08 12:24:23 INFO  Attempting to connect to the build server...
+2025.10.08 12:24:23 INFO  Found a Bloop server running
+2025.10.08 12:24:24 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/rishabh/Property-microservice/.metals/bsp.trace.json or /Users/rishabh/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.10.08 12:24:24 INFO  time: Connected to build server in 0.44s
+2025.10.08 12:24:24 INFO  Connected to Build server: Bloop v2.0.13
+2025.10.08 12:24:24 INFO  time: Imported build in 0.29s
+2025.10.08 12:24:28 INFO  time: indexed workspace in 4.82s
+2025.10.08 12:24:29 WARN  no build target for: /Users/rishabh/Property-microservice/graphql-service/build.sbt
+2025.10.08 12:24:29 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.08 12:24:29 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:24:29 WARN  no build target for: /Users/rishabh/Property-microservice/graphql-service/build.sbt
+2025.10.08 12:24:29 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.08 12:24:31 INFO  no build target found for /Users/rishabh/Property-microservice/graphql-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:26:38 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:33:05 INFO  no build target found for /Users/rishabh/Property-microservice/graphql-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:33:46 INFO  compiling root (1 scala source)
+2025.10.08 12:33:47 INFO  time: compiled root in 1.1s
+2025.10.08 12:33:55 INFO  compiling root (1 scala source)
+2025.10.08 12:33:55 INFO  time: compiled root in 0.41s
+2025.10.08 12:34:03 INFO  compiling root (2 scala sources)
+2025.10.08 12:34:03 INFO  time: compiled root in 0.45s
+2025.10.08 12:34:05 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/MutationBuilder.scala
+2025.10.08 12:34:11 INFO  compiling root (3 scala sources)
+2025.10.08 12:34:11 INFO  time: compiled root in 0.37s
+2025.10.08 12:34:12 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/MutationBuilder.scala
+2025.10.08 12:34:35 INFO  compiling root (4 scala sources)
+2025.10.08 12:34:35 INFO  time: compiled root in 0.38s
+2025.10.08 12:34:35 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/MutationBuilder.scala
+2025.10.08 12:34:48 INFO  compiling root (4 scala sources)
+2025.10.08 12:34:48 INFO  time: compiled root in 0.66s
+2025.10.08 12:34:49 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/MutationBuilder.scala
+2025.10.08 12:34:49 INFO  compiling root (4 scala sources)
+2025.10.08 12:34:49 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/MutationBuilder.scala
+2025.10.08 12:34:49 INFO  time: compiled root in 0.21s
+2025.10.08 12:34:49 WARN  Could not load snapshot text for /Users/rishabh/Property-microservice/graphql-service/app/graphql/builder/MutationBuilder.scala
+2025.10.08 12:34:51 INFO  compiling root (4 scala sources)
+2025.10.08 12:34:53 INFO  time: compiled root in 2.18s
+2025.10.08 12:41:48 INFO  compiling root (1 scala source)
+2025.10.08 12:41:49 INFO  time: compiled root in 1.5s
+2025.10.08 12:41:49 INFO  compiling root (1 scala source)
+2025.10.08 12:41:49 INFO  time: compiled root in 0.47s
+2025.10.08 12:41:49 INFO  compiling root (1 scala source)
+2025.10.08 12:41:50 INFO  time: compiled root in 0.39s
+2025.10.08 12:41:50 INFO  compiling root (1 scala source)
+2025.10.08 12:41:50 INFO  time: compiled root in 0.25s
+2025.10.08 12:45:20 INFO  compiling root (4 scala sources and 1 java source)
+2025.10.08 12:45:25 WARN  Unexpected javac output: WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by com.sourcegraph.shaded.com.sourcegraph.semanticdb_javac.SemanticdbJavacOptions (file:/Users/rishabh/Library/Caches/bloop/semanticdb/com.sourcegraph.semanticdb-javac.0.11.0/semanticdb-javac-0.11.0.jar) to method com.sun.tools.javac.api.BasicJavacTask.getContext()
+WARNING: Please consider reporting this to the maintainers of com.sourcegraph.shaded.com.sourcegraph.semanticdb_javac.SemanticdbJavacOptions
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release.
+2025.10.08 12:45:25 INFO  time: compiled root in 4.79s
+2025.10.08 12:46:08 INFO  compiling root (1 scala source)
+2025.10.08 12:46:08 INFO  time: compiled root in 0.79s
+2025.10.08 12:46:08 INFO  compiling root (4 scala sources)
+2025.10.08 12:46:09 INFO  time: compiled root in 0.43s
+2025.10.08 12:46:16 INFO  compiling root (1 scala source)
+2025.10.08 12:46:16 INFO  time: compiled root in 0.88s
+2025.10.08 12:46:16 INFO  compiling root (1 scala source)
+2025.10.08 12:46:18 INFO  time: compiled root in 0.4s
+2025.10.08 12:46:19 INFO  compiling root (1 scala source)
+2025.10.08 12:46:19 INFO  time: compiled root in 0.61s
+2025.10.08 12:46:19 INFO  compiling root (1 scala source)
+2025.10.08 12:46:19 INFO  time: compiled root in 0.34s
+2025.10.08 12:46:22 INFO  compiling root (1 scala source)
+2025.10.08 12:46:22 INFO  time: compiled root in 0.74s
+2025.10.08 12:46:22 INFO  compiling root (1 scala source)
+2025.10.08 12:46:24 INFO  time: compiled root in 0.55s
+2025.10.08 12:46:34 INFO  compiling root (1 scala source)
+2025.10.08 12:46:35 INFO  time: compiled root in 1.24s
+2025.10.08 12:54:36 INFO  no build target found for /Users/rishabh/Property-microservice/graphql-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:54:36 INFO  no build target found for /Users/rishabh/Property-microservice/graphql-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:54:36 WARN  no build target for: /Users/rishabh/Property-microservice/graphql-service/build.sbt
+2025.10.08 12:54:36 WARN  no build target for: /Users/rishabh/Property-microservice/graphql-service/build.sbt
+2025.10.08 12:54:36 INFO  no build target found for /Users/rishabh/Property-microservice/graphql-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:54:44 WARN  no build target for: /Users/rishabh/Property-microservice/graphql-service/build.sbt
+2025.10.08 12:54:45 INFO  no build target found for /Users/rishabh/Property-microservice/graphql-service/build.sbt. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 12:57:32 INFO  compiling root (1 scala source)
+2025.10.08 12:57:33 INFO  time: compiled root in 1.34s
+2025.10.08 12:57:35 INFO  compiling root (1 scala source)
+2025.10.08 12:57:35 INFO  time: compiled root in 0.97s
+2025.10.08 13:04:43 WARN  no build target for: /Users/rishabh/Property-microservice/graphql-service/build.sbt
+2025.10.08 13:05:26 INFO  compiling root (1 scala source)
+2025.10.08 13:05:28 INFO  time: compiled root in 2.16s
+2025.10.08 13:05:28 INFO  compiling root (1 scala source)
+2025.10.08 13:05:29 INFO  time: compiled root in 0.92s
+2025.10.08 13:05:36 INFO  compiling root (1 scala source)
+2025.10.08 13:05:37 INFO  time: compiled root in 1.59s
+2025.10.08 13:05:37 INFO  compiling root (1 scala source)
+2025.10.08 13:05:37 INFO  time: compiled root in 0.21s
+2025.10.08 13:21:08 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:08 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.08 13:21:08 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:09 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:09 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:12 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:16 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:16 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:17 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.08 13:21:17 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:22 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:22 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:22 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.08 13:21:22 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.10.08 13:21:36 WARN  no build target for: /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala
+2025.10.08 13:21:36 INFO  no build target found for /Users/rishabh/Property-microservice/listing-service/app/controllers/PropertyController.scala. Using presentation compiler with project's scala-library version: 2.13.16

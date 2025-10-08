@@ -1,0 +1,13 @@
+type Property {
+  id: ID!
+  title: String!
+  description: String
+  propertyType: String!
+  price: Float!
+  location: String!
+  area: Float
+  createdAt: String!
+  updatedAt: String!
+}
+
+

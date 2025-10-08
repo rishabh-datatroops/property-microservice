@@ -38,7 +38,7 @@ class PropertyMutationDataFetcher @Inject()(
   )
 
   /** Single createProperty data fetcher */
-  val createProperty: DataFetcher[java.util.concurrent.CompletableFuture[Property]] = env => {
+  val createProperty: DataFetcher[java.util.concurrent.CompletableFuture[messages.property.Property]] = env => {
     val input = env.getArgument[java.util.Map[String, Any]]("input")
 
     val title = input.get("title").toString
@@ -61,7 +61,7 @@ class PropertyMutationDataFetcher @Inject()(
   }
 
   /** Update property */
-  val updateProperty: DataFetcher[java.util.concurrent.CompletableFuture[Property]] = env => {
+  val updateProperty: DataFetcher[java.util.concurrent.CompletableFuture[messages.property.Property]] = env => {
     val input = env.getArgument[java.util.Map[String, Any]]("input")
     val id = input.get("id").toString
 
@@ -86,7 +86,7 @@ class PropertyMutationDataFetcher @Inject()(
   }
 
   /** Update only price */
-  val updatePropertyPrice: DataFetcher[java.util.concurrent.CompletableFuture[Property]] = env => {
+  val updatePropertyPrice: DataFetcher[java.util.concurrent.CompletableFuture[messages.property.Property]] = env => {
     val id = env.getArgument[String]("id")
     val price = env.getArgument[Double]("price")
 
