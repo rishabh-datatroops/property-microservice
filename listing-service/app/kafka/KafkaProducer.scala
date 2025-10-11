@@ -9,10 +9,13 @@ import messages.property.PropertyEvent
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
 import play.api.libs.json.Json
+import org.slf4j.LoggerFactory
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class KafkaProducer(system: ActorSystem, topic: String)(implicit ec: ExecutionContext) {
+  
+  private val logger = LoggerFactory.getLogger(getClass)
   
   val producerSettings = ProducerSettings(system, new StringSerializer, new StringSerializer)
     .withBootstrapServers(system.settings.config.getString("kafka.bootstrap.servers"))
@@ -28,10 +31,10 @@ class KafkaProducer(system: ActorSystem, topic: String)(implicit ec: ExecutionCo
     Source.single(record)
       .runWith(Producer.plainSink(producerSettings))
       .map { _ =>
-        system.log.info(s"Property event sent: ${event.propertyId}")
+        logger.info(s"Property event sent: ${event.propertyId}")
       }
       .recover { case ex =>
-        system.log.error(s"Failed to send property event for ${event.propertyId}: ${ex.getMessage}", ex)
+        logger.error(s"Failed to send property event for ${event.propertyId}: ${ex.getMessage}", ex)
         Future.failed(ex)
       }
   }

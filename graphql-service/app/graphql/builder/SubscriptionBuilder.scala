@@ -21,7 +21,3 @@ class SubscriptionBuilder @Inject()(
       .dataFetcher("newProperty", propertySubscriptionDataFetcher.newProperty)
   }
 }
-
-
-
-

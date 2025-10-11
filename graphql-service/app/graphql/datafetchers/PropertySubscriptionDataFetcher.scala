@@ -19,9 +19,6 @@ class PropertySubscriptionDataFetcher @Inject()(
 
   private val logger = LoggerFactory.getLogger(getClass)
 
-  // Actor system for managing subscription state
-  private implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "PropertySubscriptionSystem")
-
   // Custom publisher implementation
   private class PropertyPublisher extends Publisher[Property] {
     private val subscribers = new ConcurrentLinkedQueue[Subscriber[_ >: Property]]()
@@ -80,7 +77,6 @@ class PropertySubscriptionDataFetcher @Inject()(
 
   private val publisher = new PropertyPublisher()
 
-  // Data fetcher that returns a reactive stream publisher
   val newProperty: DataFetcher[Publisher[Property]] = _ => publisher
 
   // Broadcast a new property to all subscribers

@@ -51,7 +51,6 @@ class PropertyMutationDataFetcher @Inject()(
 
     val createPropertyData = buildCreateProperty(title, price, location, propertyType, description, area, brokerId)
 
-    // Create the property and broadcast to subscribers
     val result = createPropertyRequest.createProperty(createPropertyData).flatMap { createdProperty =>
       // Broadcast the new property to GraphQL subscribers
       propertyUpdateService.onPropertyCreated(createdProperty).map(_ => createdProperty)

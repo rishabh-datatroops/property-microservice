@@ -1,28 +1,32 @@
 package controllers
 
-import javax.inject._
-import play.api.mvc._
-import play.api.libs.json._
-
-import scala.concurrent.{ExecutionContext, Future}
-import scala.jdk.FutureConverters._
-import graphql.PropertyGraphQL
-import graphql.ExecutionInput
 import com.fasterxml.jackson.databind.ObjectMapper
+import graphql.{ExecutionInput, PropertyGraphQL}
+import play.api.libs.json._
+import play.api.mvc._
+import org.slf4j.LoggerFactory
+import org.apache.pekko.actor.ActorSystem
+import org.apache.pekko.stream.Materializer
 
+import javax.inject._
+import scala.concurrent.{ExecutionContext, Future}
 import scala.jdk.CollectionConverters.CollectionHasAsScala
-import scala.jdk.CollectionConverters.MapHasAsJava
+import scala.jdk.FutureConverters._
 
 @Singleton
 class GraphQLController @Inject()(
                                    cc: ControllerComponents,
                                    propertyGraphQL: PropertyGraphQL
-                                 )(implicit ec: ExecutionContext) extends AbstractController(cc) {
+                                 )(implicit ec: ExecutionContext, system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
+
+  private val logger = LoggerFactory.getLogger(getClass)
 
   def graphql(): Action[JsValue] = Action.async(parse.json) { request =>
     val queryOpt = (request.body \ "query").asOpt[String]
     val operationName = (request.body \ "operationName").asOpt[String]
     val variablesOpt = (request.body \ "variables").asOpt[JsValue]
+    
+    logger.info(s"Processing GraphQL request - Operation: ${operationName.getOrElse("unnamed")}")
 
     queryOpt match {
       case Some(query) =>
@@ -39,8 +43,8 @@ class GraphQLController @Inject()(
             executionInputBuilder.variables(variablesMap)
           } catch {
             case e: Exception =>
-              println(s"Error parsing variables: ${e.getMessage}")
-              println(s"Variables JSON: ${variables.toString}")
+              logger.error(s"Error parsing variables: ${e.getMessage}", e)
+              logger.debug(s"Variables JSON: ${variables.toString}")
           }
         }
         
@@ -50,21 +54,25 @@ class GraphQLController @Inject()(
           .asScala
           .map { result =>
             if (result.getErrors.isEmpty) {
+              logger.info(s"GraphQL query executed successfully - Operation: ${operationName.getOrElse("unnamed")}")
               val data = result.getData[java.util.Map[String, Object]]()
               val mapper = new ObjectMapper()
               Ok(Json.parse(mapper.writeValueAsString(data)))
             } else {
               val errors = result.getErrors.asScala.map(_.getMessage).toSeq
+              logger.warn(s"GraphQL query executed with errors: ${errors.mkString(", ")}")
               BadRequest(Json.obj("errors" -> errors))
             }
           }
           .recover {
             case error: Exception =>
               val errorMessage = Option(error.getMessage).getOrElse(error.getClass.getSimpleName)
+              logger.error(s"GraphQL execution failed: $errorMessage", error)
               InternalServerError(Json.obj("error" -> errorMessage))
           }
 
       case None =>
+        logger.warn("GraphQL request received without query")
         Future.successful(BadRequest(Json.obj("error" -> "No query found in request body")))
     }
   }

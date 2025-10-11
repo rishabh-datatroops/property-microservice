@@ -17,6 +17,7 @@ class NotificationService @Inject()(
   private case class Change(field: String, previous: Option[Any], current: Option[Any])
 
   def processPropertyCreatedEvent(event: PropertyCreatedEvent): Future[Unit] = {
+    logger.info(s"[NotificationService] Processing PropertyCreatedEvent for property: ${event.propertyId}")
     val property = convertCreatedEventToProperty(event)
     propertyStateService.updatePropertyState(property)
 
@@ -32,6 +33,7 @@ class NotificationService @Inject()(
   }
 
   def processPropertyUpdatedEvent(event: PropertyUpdatedEvent): Future[Unit] = {
+    logger.info(s"[NotificationService] Processing PropertyUpdatedEvent for property: ${event.propertyId}")
     val current = convertEventToProperty(event)
     val previousOpt = propertyStateService.getPropertyState(event.propertyId)
 
@@ -52,9 +54,10 @@ class NotificationService @Inject()(
             previousLocation = changes.find(_.field == "location").flatMap(_.previous).collect { case s: String => s }
           )
           sendNotification(notifyReq)
-        } else Future.successful(())
+        } else {
+          Future.successful(())
+        }
       case None =>
-        logger.info(s"No previous state for ${event.propertyId}, treating as new property")
         processPropertyCreatedEvent(PropertyCreatedEvent(
           propertyId = event.propertyId,
           brokerId = event.brokerId,
@@ -70,6 +73,7 @@ class NotificationService @Inject()(
   }
 
   def processPropertyDeletedEvent(event: PropertyDeletedEvent): Future[Unit] = {
+    logger.info(s"[NotificationService] Processing PropertyDeletedEvent for property: ${event.propertyId}")
     propertyStateService.removePropertyState(event.propertyId)
     Future.successful(())
   }

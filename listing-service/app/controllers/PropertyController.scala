@@ -7,6 +7,7 @@ import messages.property._
 import models._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json._
+import org.slf4j.LoggerFactory
 import play.api.mvc._
 import slick.jdbc.PostgresProfile
 import slick.jdbc.PostgresProfile.api._
@@ -25,6 +26,8 @@ class PropertyController @Inject()(
 )(implicit ec: ExecutionContext) 
   extends BaseController with HasDatabaseConfigProvider[PostgresProfile] {
 
+  private val logger = LoggerFactory.getLogger(getClass)
+
   val properties = TableQuery[Properties]
   val kafkaPublisher = new KafkaProducer(system, "property-events")(ec)
 
@@ -34,6 +37,7 @@ class PropertyController @Inject()(
 
   def createProperty() = Action.async(parse.json) { request =>
     val createPropertyRequest = request.body.as[CreateProperty]
+    logger.info(s"Creating property: ${createPropertyRequest.title}")
     val property = Property(
       id = UUID.randomUUID(),
       brokerId = createPropertyRequest.brokerId,
@@ -67,28 +71,40 @@ class PropertyController @Inject()(
       )
       
       kafkaPublisher.sendPropertyEvent(event)(mat).map { _ =>
+        logger.info(s"Property created successfully: ${createdProperty.id}")
         Ok(Json.toJson(createdProperty))
       }.recover { case ex =>
+        logger.error(s"Failed to send Kafka event for property ${createdProperty.id}: ${ex.getMessage}", ex)
         Ok(Json.toJson(createdProperty)) // Still return success even if Kafka fails
       }
     }
   }
 
   def getProperty(id: String) = Action.async {
+    logger.info(s"Getting property: $id")
     db.run(properties.filter(p => p.id === UUID.fromString(id) && p.deletedAt.isEmpty).result.headOption)
       .map {
-        case Some(prop) => Ok(Json.toJson(prop))
-        case None => NotFound
+        case Some(prop) => 
+          logger.info(s"Property found: $id")
+          Ok(Json.toJson(prop))
+        case None => 
+          logger.warn(s"Property not found: $id")
+          NotFound
       }
   }
 
   def listProperties() = Action.async {
+    logger.info("Listing all properties")
     db.run(properties.filter(_.deletedAt.isEmpty).result)
-      .map(props => Ok(Json.toJson(props)))
+      .map(props => {
+        logger.info(s"Found ${props.length} properties")
+        Ok(Json.toJson(props))
+      })
   }
 
   def updateProperty(id: String) = Action.async(parse.json) { request =>
     val updateRequest = request.body.as[UpdateProperty]
+    logger.info(s"Updating property: $id")
 
     // Safely convert string to UUID
     val propertyIdTry = scala.util.Try(UUID.fromString(id))
@@ -131,11 +147,14 @@ class PropertyController @Inject()(
             )
             
             kafkaPublisher.sendPropertyEvent(event)(mat).map { _ =>
+              logger.info(s"Property updated successfully: ${updatedProperty.id}")
               Ok(Json.toJson(updatedProperty))
             }.recover { case ex =>
+              logger.error(s"Failed to send Kafka event for property update ${updatedProperty.id}: ${ex.getMessage}", ex)
               Ok(Json.toJson(updatedProperty)) // Still return success even if Kafka fails
             }
           case None =>
+            logger.warn(s"Property not found for update: $id")
             Future.successful(NotFound)
         }
       }
@@ -143,26 +162,20 @@ class PropertyController @Inject()(
   }
 
   def deleteProperty(id: String) = Action.async {
+    logger.info(s"Deleting property: $id")
     val propertyIdTry = scala.util.Try(UUID.fromString(id))
     propertyIdTry.fold(
       _ => Future.successful(BadRequest("Invalid UUID format")),
       propertyId => {
         val action = for {
           existingOpt <- properties.filter(_.id === propertyId).result.headOption
-          updatedOpt <- existingOpt match {
-            case Some(existingProperty) if existingProperty.deletedAt.isEmpty =>
-              val now = Instant.now()
-              val softDeletedProperty = existingProperty.copy(deletedAt = Some(now))
-              properties.filter(_.id === propertyId)
-                .update(softDeletedProperty)
-                .map(_ => Some(softDeletedProperty))
-            case Some(_) =>
-              // Already deleted
-              DBIO.successful(None)
+          deleted <- existingOpt match {
+            case Some(existingProperty) =>
+              properties.filter(_.id === propertyId).delete.map(_ => Some(existingProperty))
             case None =>
               DBIO.successful(None)
           }
-        } yield updatedOpt
+        } yield deleted
 
         db.run(action.transactionally).flatMap {
           case Some(deletedProperty) =>
@@ -176,15 +189,23 @@ class PropertyController @Inject()(
             )
 
             kafkaPublisher.sendPropertyEvent(event)(mat).map { _ =>
+              logger.info(s"Property deleted successfully: ${deletedProperty.id}")
               Ok(Json.obj(
                 "success" -> true,
-                "message" -> s"Property ${deletedProperty.title} soft deleted successfully"
+                "message" -> s"Property ${deletedProperty.title} deleted successfully"
+              ))
+            }.recover { case ex =>
+              logger.error(s"Failed to send Kafka event for property deletion ${deletedProperty.id}: ${ex.getMessage}", ex)
+              Ok(Json.obj(
+                "success" -> true,
+                "message" -> s"Property ${deletedProperty.title} deleted successfully"
               ))
             }
           case None =>
+            logger.warn(s"Property not found for deletion: $id")
             Future.successful(NotFound(Json.obj(
               "success" -> false,
-              "message" -> "Property not found or already deleted"
+              "message" -> "Property not found"
             )))
         }
       }

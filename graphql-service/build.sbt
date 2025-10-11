@@ -15,7 +15,7 @@ libraryDependencies ++= Seq(
   "com.graphql-java" % "graphql-java" % "21.3",
   "com.graphql-java" % "graphql-java-extended-scalars" % "21.0",
   "org.reactivestreams" % "reactive-streams" % "1.0.4",
-  "org.slf4j" % "slf4j-log4j12" % "1.7.36"
+  "org.slf4j" % "slf4j-api" % "1.7.36"
 )
 
 // Add resources directory to classpath

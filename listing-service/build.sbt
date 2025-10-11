@@ -15,5 +15,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-json" % "2.9.4",
   // Use traditional Akka Kafka which is more stable
   "com.typesafe.akka" %% "akka-stream-kafka" % "2.1.1",
-  "org.apache.kafka" % "kafka-clients" % "2.8.2"
+  "org.apache.kafka" % "kafka-clients" % "2.8.2",
+  "org.slf4j" % "slf4j-api" % "1.7.36"
 )

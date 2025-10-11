@@ -2,6 +2,7 @@ package services
 
 import graphql.datafetchers.PropertySubscriptionDataFetcher
 import messages.property.Property
+import org.slf4j.LoggerFactory
 
 import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
@@ -11,45 +12,34 @@ class PropertyUpdateService @Inject()(
   subscriptionDataFetcher: PropertySubscriptionDataFetcher
 )(implicit ec: ExecutionContext) {
 
-  /**
-   * Called when a new property is created
-   * Broadcasts the property to all GraphQL subscribers
-   */
+  private val logger = LoggerFactory.getLogger(getClass)
+
   def onPropertyCreated(property: Property): Future[Unit] = {
+    logger.info(s"Broadcasting new property to subscribers: ${property.id}")
     subscriptionDataFetcher.broadcastPropertyCreated(property)
       .map { _ =>
-        println(s"Broadcasted new property to subscribers: ${property.id}")
+        logger.info(s"Successfully broadcasted new property to subscribers: ${property.id}")
       }
       .recover {
         case ex: Exception =>
-          println(s"Failed to broadcast property creation: ${ex.getMessage}")
+          logger.error(s"Failed to broadcast property creation: ${ex.getMessage}", ex)
       }
   }
 
-  /**
-   * Called when a property is updated
-   * Broadcasts the updated property to all GraphQL subscribers
-   */
   def onPropertyUpdated(property: Property): Future[Unit] = {
+    logger.info(s"Broadcasting property update to subscribers: ${property.id}")
     subscriptionDataFetcher.broadcastPropertyUpdate(property)
       .map { _ =>
-        println(s"Broadcasted property update to subscribers: ${property.id}")
+        logger.info(s"Successfully broadcasted property update to subscribers: ${property.id}")
       }
       .recover {
         case ex: Exception =>
-          println(s"Failed to broadcast property update: ${ex.getMessage}")
+          logger.error(s"Failed to broadcast property update: ${ex.getMessage}", ex)
       }
   }
 
-  /**
-   * Called when a property is deleted
-   * Could broadcast a deletion event to subscribers
-   */
   def onPropertyDeleted(propertyId: String): Future[Unit] = {
-    // For now, just log the deletion
-    // In a full implementation, you might want to broadcast deletion events
-    Future {
-      println(s"Property deleted: $propertyId")
-    }
+    logger.info(s"Property deleted: $propertyId")
+    Future.successful(())
   }
 }

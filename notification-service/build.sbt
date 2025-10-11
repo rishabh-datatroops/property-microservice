@@ -10,7 +10,8 @@ libraryDependencies ++= Seq(
   guice,
   "com.typesafe.play" %% "play-json" % "2.9.4",
   "com.typesafe.akka" %% "akka-stream-kafka" % "3.0.0",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.2" % Test
+  "org.scalatestplus.play" %% "scalatestplus-play" % "7.0.2" % Test,
+  "org.slf4j" % "slf4j-api" % "1.7.36"
 )
 
 // Adds additional packages into Twirl

@@ -4,11 +4,6 @@ import java.util.UUID
 import java.time.Instant
 import play.api.libs.json._
 
-/**
- * Consistent event models for property-related events across all services
- * These events are published to Kafka and consumed by the notification service
- */
-
 sealed trait PropertyEvent {
   def eventType: String
   def timestamp: Instant
@@ -77,10 +72,7 @@ object PropertyEvent {
     }
     
     def reads(json: JsValue): JsResult[PropertyEvent] = {
-      // Try to get eventType from JSON, if not present, assume PropertyCreated
-      val eventTypeOpt = (json \ "eventType").asOpt[String]
-      val eventType = eventTypeOpt.getOrElse("PropertyCreated")
-      
+      val eventType = (json \ "eventType").as[String]
       eventType match {
         case "PropertyCreated" => Json.fromJson[PropertyCreatedEvent](json)
         case "PropertyUpdated" => Json.fromJson[PropertyUpdatedEvent](json)

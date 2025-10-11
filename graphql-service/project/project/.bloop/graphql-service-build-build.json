@@ -214,7 +214,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "/Users/rishabh/.sdkman/candidates/java/21.0.6-tem",
+                "home": "/Users/rishabh/.sdkman/candidates/java/11.0.26-amzn",
                 "options": [
                     "-Duser.dir=/Users/rishabh/Property-microservice/graphql-service/project/project"
                 ]
@@ -223,7 +223,7 @@
                 
             ],
             "runtimeConfig": {
-                "home": "/Users/rishabh/.sdkman/candidates/java/21.0.6-tem",
+                "home": "/Users/rishabh/.sdkman/candidates/java/11.0.26-amzn",
                 "options": [
                     "-Duser.dir=/Users/rishabh/Property-microservice/graphql-service/project/project"
                 ]
